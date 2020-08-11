@@ -1,0 +1,414 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2EA883F424E10FD100207283 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA883F324E10FD100207283 /* AppDelegate.swift */; };
+		2EA883F624E10FD100207283 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA883F524E10FD100207283 /* SceneDelegate.swift */; };
+		2EA883F824E10FD100207283 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA883F724E10FD100207283 /* ViewController.swift */; };
+		2EA883FB24E10FD100207283 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EA883F924E10FD100207283 /* Main.storyboard */; };
+		2EA883FD24E10FD400207283 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EA883FC24E10FD400207283 /* Assets.xcassets */; };
+		2EA8840024E10FD400207283 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EA883FE24E10FD400207283 /* LaunchScreen.storyboard */; };
+		F227584205AB956F1FE44054 /* Pods_SecuXPaymentKitSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54201FC817EF14676DEDBF92 /* Pods_SecuXPaymentKitSample.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2EA883F024E10FD100207283 /* SecuXPaymentKitSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecuXPaymentKitSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EA883F324E10FD100207283 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2EA883F524E10FD100207283 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		2EA883F724E10FD100207283 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2EA883FA24E10FD100207283 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2EA883FC24E10FD400207283 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2EA883FF24E10FD400207283 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2EA8840124E10FD400207283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		54201FC817EF14676DEDBF92 /* Pods_SecuXPaymentKitSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SecuXPaymentKitSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6042AE7CBBB35B6CF8A6A4BA /* Pods-SecuXPaymentKitSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecuXPaymentKitSample.release.xcconfig"; path = "Target Support Files/Pods-SecuXPaymentKitSample/Pods-SecuXPaymentKitSample.release.xcconfig"; sourceTree = "<group>"; };
+		CCA9F096526F6FD8775C61F5 /* Pods-SecuXPaymentKitSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecuXPaymentKitSample.debug.xcconfig"; path = "Target Support Files/Pods-SecuXPaymentKitSample/Pods-SecuXPaymentKitSample.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2EA883ED24E10FD100207283 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F227584205AB956F1FE44054 /* Pods_SecuXPaymentKitSample.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2EA883E724E10FD100207283 = {
+			isa = PBXGroup;
+			children = (
+				2EA883F224E10FD100207283 /* SecuXPaymentKitSample */,
+				2EA883F124E10FD100207283 /* Products */,
+				F8498C9A86B831D3544BC42A /* Pods */,
+				B6495161C56E09E94C2AA288 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2EA883F124E10FD100207283 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2EA883F024E10FD100207283 /* SecuXPaymentKitSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2EA883F224E10FD100207283 /* SecuXPaymentKitSample */ = {
+			isa = PBXGroup;
+			children = (
+				2EA883F324E10FD100207283 /* AppDelegate.swift */,
+				2EA883F524E10FD100207283 /* SceneDelegate.swift */,
+				2EA883F724E10FD100207283 /* ViewController.swift */,
+				2EA883F924E10FD100207283 /* Main.storyboard */,
+				2EA883FC24E10FD400207283 /* Assets.xcassets */,
+				2EA883FE24E10FD400207283 /* LaunchScreen.storyboard */,
+				2EA8840124E10FD400207283 /* Info.plist */,
+			);
+			path = SecuXPaymentKitSample;
+			sourceTree = "<group>";
+		};
+		B6495161C56E09E94C2AA288 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				54201FC817EF14676DEDBF92 /* Pods_SecuXPaymentKitSample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F8498C9A86B831D3544BC42A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CCA9F096526F6FD8775C61F5 /* Pods-SecuXPaymentKitSample.debug.xcconfig */,
+				6042AE7CBBB35B6CF8A6A4BA /* Pods-SecuXPaymentKitSample.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2EA883EF24E10FD100207283 /* SecuXPaymentKitSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2EA8840424E10FD400207283 /* Build configuration list for PBXNativeTarget "SecuXPaymentKitSample" */;
+			buildPhases = (
+				D52905D0B612B9AE29683D7E /* [CP] Check Pods Manifest.lock */,
+				2EA883EC24E10FD100207283 /* Sources */,
+				2EA883ED24E10FD100207283 /* Frameworks */,
+				2EA883EE24E10FD100207283 /* Resources */,
+				B33AC19711CE10FAC696D80C /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SecuXPaymentKitSample;
+			productName = SecuXPaymentKitSample;
+			productReference = 2EA883F024E10FD100207283 /* SecuXPaymentKitSample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2EA883E824E10FD100207283 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1160;
+				LastUpgradeCheck = 1160;
+				ORGANIZATIONNAME = SecuX;
+				TargetAttributes = {
+					2EA883EF24E10FD100207283 = {
+						CreatedOnToolsVersion = 11.6;
+					};
+				};
+			};
+			buildConfigurationList = 2EA883EB24E10FD100207283 /* Build configuration list for PBXProject "SecuXPaymentKitSample" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2EA883E724E10FD100207283;
+			productRefGroup = 2EA883F124E10FD100207283 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2EA883EF24E10FD100207283 /* SecuXPaymentKitSample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2EA883EE24E10FD100207283 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2EA8840024E10FD400207283 /* LaunchScreen.storyboard in Resources */,
+				2EA883FD24E10FD400207283 /* Assets.xcassets in Resources */,
+				2EA883FB24E10FD100207283 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B33AC19711CE10FAC696D80C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SecuXPaymentKitSample/Pods-SecuXPaymentKitSample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SecuXPaymentKitSample/Pods-SecuXPaymentKitSample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SecuXPaymentKitSample/Pods-SecuXPaymentKitSample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D52905D0B612B9AE29683D7E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SecuXPaymentKitSample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2EA883EC24E10FD100207283 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2EA883F824E10FD100207283 /* ViewController.swift in Sources */,
+				2EA883F424E10FD100207283 /* AppDelegate.swift in Sources */,
+				2EA883F624E10FD100207283 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2EA883F924E10FD100207283 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2EA883FA24E10FD100207283 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2EA883FE24E10FD400207283 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2EA883FF24E10FD400207283 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2EA8840224E10FD400207283 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2EA8840324E10FD400207283 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2EA8840524E10FD400207283 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCA9F096526F6FD8775C61F5 /* Pods-SecuXPaymentKitSample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 439P2P24S8;
+				INFOPLIST_FILE = SecuXPaymentKitSample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.secux.springtreespaymentkitsample.SecuXPaymentKitSample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2EA8840624E10FD400207283 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6042AE7CBBB35B6CF8A6A4BA /* Pods-SecuXPaymentKitSample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 439P2P24S8;
+				INFOPLIST_FILE = SecuXPaymentKitSample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.secux.springtreespaymentkitsample.SecuXPaymentKitSample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2EA883EB24E10FD100207283 /* Build configuration list for PBXProject "SecuXPaymentKitSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2EA8840224E10FD400207283 /* Debug */,
+				2EA8840324E10FD400207283 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2EA8840424E10FD400207283 /* Build configuration list for PBXNativeTarget "SecuXPaymentKitSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2EA8840524E10FD400207283 /* Debug */,
+				2EA8840624E10FD400207283 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2EA883E824E10FD100207283 /* Project object */;
+}
