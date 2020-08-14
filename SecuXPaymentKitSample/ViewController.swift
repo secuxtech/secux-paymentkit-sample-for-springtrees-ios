@@ -39,7 +39,6 @@ class ViewController: UIViewController {
             btn.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             btn.heightAnchor.constraint(equalToConstant: 46),
             
-            
         ])
        
         return btn

@@ -1,6 +1,6 @@
 PODS:
   - secux-paymentdevicekit (2.0.1)
-  - secux-paymentkit-v2 (1.0.8):
+  - secux-paymentkit-v2 (1.0.9):
     - secux-paymentdevicekit (~> 2.0.1)
 
 DEPENDENCIES:
@@ -13,7 +13,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   secux-paymentdevicekit: f39a8619e3e093f4d45b26cc22a208c6523ef8c3
-  secux-paymentkit-v2: 5bb3a31eca16b061da747ceb53ab955b98f156b4
+  secux-paymentkit-v2: 96cf9b5698bf3cb5ec62a606187f3df8904c9de4
 
 PODFILE CHECKSUM: f7ac7e17dd5688e71b6fd3f12b037eb0e72f7fe5
 
