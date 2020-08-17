@@ -15,8 +15,6 @@ class ViewController: UIViewController {
         
         let btn = UIButton()
         
-    
-    
         btn.translatesAutoresizingMaskIntoConstraints = false
         
         btn.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 22)
@@ -47,33 +45,77 @@ class ViewController: UIViewController {
     
     private let accountManager = SecuXAccountManager()
     private let paymentManager = SecuXPaymentManager()
-    private var theUserAccount : SecuXUserAccount?
+    
+    private let accountName = "secuxdemo"
+    private let accountPwd = "secuxdemo168"
+    
+    private let testQRCode = "{\"amount\":\"1\", \"coinType\":\"$:abcde\", \"nonce\":\"b29f5ceb\", \"deviceIDhash\":\"4afff62e0b314266d9e1b3a48158d56134331a9f\"}"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         let _ = self.testButton
+        
+        self.accountManager.setBaseServer(url: "https://pmsweb-test.secux.io")
     }
 
     @objc func testAction(){
-        doEncryptPaymentDataTest()
+        DispatchQueue.global().async {
+            self.doEncryptPaymentData(devQRCodeInfo: self.testQRCode, transID: "Test0001")
+        }
+        
     }
 
-    
-    func doEncryptPaymentDataTest(){
-        let (ret, data) = accountManager.loginUserAccount(userAccount: theUserAccount!)
+    func login(name:String, password:String) -> Bool{
+        let (ret, data) = accountManager.loginMerchantAccount(accountName: name, password: password)
         guard ret == SecuXRequestResult.SecuXRequestOK else{
             print("login failed!")
             if let data = data{
                 print("Error: \(String(data: data, encoding: String.Encoding.utf8) ?? "")")
             }
+            return false
+        }
+        
+        return true
+    }
+    
+    func doEncryptPaymentData(devQRCodeInfo: String, transID:String){
+        
+        
+        
+        guard login(name: self.accountName, password: self.accountPwd) else{
+            print("Login failed. doEncryptPaymentData abort!")
             return
         }
         
-        let (encret, enctxt) = paymentManager.doActivity(userID: theUserAccount!.name, devID: "811c000009c5", coin: "$", token: "MQ03T",
-                                                                 transID: "test123456", amount: "1", nonce: "abcdef")
-        print("doEncryptPaymentDataTest result \(encret), \(enctxt)")
+        let (ret, error, storeInfo) = paymentManager.getStoreInfo(devID: "4afff62e0b314266d9e1b3a48158d56134331a9f")
+        
+        guard ret == SecuXRequestResult.SecuXRequestOK else{
+            print("Get store info. failed! error: \(error)")
+            return
+        }
+        
+        guard let devID = storeInfo?.devID else{
+            print("Invalid store info. no device ID")
+            return
+        }
+        
+        var (doActivityRet, doActivityError) = paymentManager.doActivity(userID: self.accountName, devID: devID, coin: "DCT", token: "SPC",
+                                                                         transID: "test12345678", amount: "1", nonce: "d54343e3")
+        if doActivityRet == SecuXRequestResult.SecuXRequestUnauthorized{
+            
+            //If login session timeout, relogin the merchant account
+            guard login(name: self.accountName, password: self.accountPwd) else{
+                print("Login failed. doEncryptPaymentData abort!")
+                return
+            }
+            
+            (doActivityRet, doActivityError) = paymentManager.doActivity(userID: "secuxdemo", devID: devID, coin: "DCT", token: "SPC",
+                                                                         transID: "test12345678", amount: "1", nonce: "d54343e3")
+        }
+        
+        print("doEncryptPaymentDataTest result \(doActivityRet), \(doActivityError)")
     }
 }
 
