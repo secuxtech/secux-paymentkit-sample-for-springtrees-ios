@@ -166,7 +166,8 @@ Use SecuXPaymentManager object to do the operations below
         
         //If login session timeout, relogin the merchant account
         guard login(name: self.accountName, password: self.accountPwd) else{
-            self.showMessageInMainThread(title: "Login failed. doEncryptPaymentData abort!", message: "")
+            self.showMessageInMainThread(title: "Login failed. doEncryptPaymentData abort!", 
+                                       message: "")
             return
         }
         
@@ -180,9 +181,11 @@ Use SecuXPaymentManager object to do the operations below
     }
     
     if doActivityRet == SecuXRequestResult.SecuXRequestOK{
-        self.showMessageInMainThread(title: "doEncryptPaymentDataTest result successfully!", message: "")
+        self.showMessageInMainThread(title: "doEncryptPaymentDataTest result successfully!", 
+                                   message: "")
     }else{
-        self.showMessageInMainThread(title: "doEncryptPaymentDataTest result failed!", message: "\(doActivityError)")
+        self.showMessageInMainThread(title: "doEncryptPaymentDataTest result failed!", 
+                                   message: "\(doActivityError)")
     }
     
 ```
