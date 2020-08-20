@@ -31,6 +31,11 @@ pod 'secux-paymentkit-v2'
 
 ## Usage
 
+The secux-paymentkit-sample-for-springtrees-ios is a sample APP for showing how to scan
+the QRCode from P22 and confirm the promotion to the P22 device. 
+
+## APIs
+
 ### SecuXAccount related operations
 
 Use SecuXAccountManager object to do the operations below
