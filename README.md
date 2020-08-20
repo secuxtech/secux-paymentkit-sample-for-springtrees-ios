@@ -127,7 +127,7 @@ Get store information via the hashed device ID in P22 QRCode.
     }
 ```
 
-3. <b>Do promotation activity</b>
+2. <b>Do promotation activity</b>
 
 Confirm the promotation acitvity to the P22 device.
 
