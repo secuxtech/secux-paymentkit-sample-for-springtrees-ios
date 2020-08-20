@@ -100,12 +100,13 @@ Use SecuXPaymentManager object to do the operations below
 ```
     SecuXRequestResult shows the operation result. If the result is SecuXRequestOK, 
     getting store information is successfully, store information is in the SecuXStoreInfo, 
-    otherwise getting store information is failed and data might contain an error message.
+    otherwise getting store information is failed and string might contain an error message.
 
     Note: if return result is SecuXRequestNoToken / SecuXRequestUnauthorized, the login 
     session is timeout, please relogin the system.
 
-    SecuXStoreInfo contains store code, store name, store icon, store device id and store supported coin/token array
+    SecuXStoreInfo contains store code, store name, store icon, store device id and 
+    store supported coin/token array
 ```
 #### <u>Sample</u>
 ```swift
