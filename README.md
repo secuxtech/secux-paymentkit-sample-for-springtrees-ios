@@ -159,7 +159,8 @@ Confirm the promotation acitvity to the P22 device.
 #### <u>Return value</u>
 ```
     SecuXRequestResult shows the operation result. If the result is SecuXRequestOK, 
-    doActivity is successfully and P22 should show the successful message, otherwise doActivity is failed and string might contain an error message.
+    doActivity is successfully and P22 should show the successful message, 
+    otherwise doActivity is failed and returned string might contain an error message.
 
     Note: if return result is SecuXRequestNoToken / SecuXRequestUnauthorized, the login 
     session is timeout, please relogin the system.
