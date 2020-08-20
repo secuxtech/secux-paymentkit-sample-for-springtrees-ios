@@ -88,6 +88,8 @@ Use SecuXPaymentManager object to do the operations below
 ```
 
 1. <b>Get store information</b>
+
+Get store information via the hashed device ID in P22 QRCode.
 #### <u>Declaration</u>
 ```swift
     func getStoreInfo(devID:String) -> (SecuXRequestResult, String, SecuXStoreInfo?)
@@ -126,6 +128,9 @@ Use SecuXPaymentManager object to do the operations below
 ```
 
 3. <b>Do promotation activity</b>
+
+Confirm the promotation acitvity to the P22 device.
+
 #### <u>Declaration</u>
 ```swift
     func doActivity(userID:String, 
