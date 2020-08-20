@@ -135,8 +135,12 @@ class ViewController: BaseViewController {
                 return
             }
             
-            (doActivityRet, doActivityError) = paymentManager.doActivity(userID: "secuxdemo", devID: devID, coin: "DCT", token: "SPC",
-                                                                         transID: "test12345678", amount: "1", nonce: "d54343e3")
+            (doActivityRet, doActivityError) = paymentManager.doActivity(userID: self.accountName, devID: devID,
+                                                                        coin: qrcodeParser.coin,
+                                                                        token: qrcodeParser.token,
+                                                                        transID: transID,
+                                                                        amount: qrcodeParser.amount,
+                                                                        nonce: qrcodeParser.nonce)
         }
         
         if doActivityRet == SecuXRequestResult.SecuXRequestOK{
