@@ -99,7 +99,8 @@ Use SecuXPaymentManager object to do the operations below
 #### <u>Return value</u>
 ```
     SecuXRequestResult shows the operation result. If the result is SecuXRequestOK, 
-    getting store information is successfully, store information is in the SecuXStoreInfo, otherwise getting store information if failed and data might contain an error message.
+    getting store information is successfully, store information is in the SecuXStoreInfo, 
+    otherwise getting store information is failed and data might contain an error message.
 
     Note: if return result is SecuXRequestNoToken / SecuXRequestUnauthorized, the login 
     session is timeout, please relogin the system.
