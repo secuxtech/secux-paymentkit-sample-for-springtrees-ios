@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import swiftScan
 import secux_paymentkit_v2
 
-class ViewController: UIViewController {
+
+class ViewController: BaseViewController {
     
     lazy var testButton:  UIButton = {
         
@@ -19,8 +21,9 @@ class ViewController: UIViewController {
         
         btn.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 22)
         btn.setTitleColor(UIColor.blue, for: .normal)
+        btn.setTitleColor(UIColor.darkGray, for: .highlighted)
         btn.setTitleColor(UIColor.gray, for: .disabled)
-        btn.setTitle(NSLocalizedString("Test", comment: ""), for: .normal)
+        btn.setTitle(NSLocalizedString("Scan QRCode", comment: ""), for: .normal)
         
         btn.addTarget(self, action: #selector(testAction), for: .touchUpInside)
         
@@ -33,7 +36,7 @@ class ViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             
-            btn.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -66),
+            btn.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             btn.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             btn.heightAnchor.constraint(equalToConstant: 46),
             
@@ -42,6 +45,7 @@ class ViewController: UIViewController {
         return btn
     }()
     
+    let scanQRCodeVC = LBXScanViewController()
     
     private let accountManager = SecuXAccountManager()
     private let paymentManager = SecuXPaymentManager()
@@ -49,11 +53,9 @@ class ViewController: UIViewController {
     private let accountName = "secuxdemo"
     private let accountPwd = "secuxdemo168"
     
-    private let testQRCode = "{\"amount\":\"1\", \"coinType\":\"$:abcde\", \"nonce\":\"b29f5ceb\", \"deviceIDhash\":\"4afff62e0b314266d9e1b3a48158d56134331a9f\"}"
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         let _ = self.testButton
         
@@ -61,9 +63,24 @@ class ViewController: UIViewController {
     }
 
     @objc func testAction(){
-        DispatchQueue.global().async {
-            self.doEncryptPaymentData(devQRCodeInfo: self.testQRCode, transID: "Test0001")
-        }
+        
+        var style = LBXScanViewStyle()
+        style.centerUpOffset = 44
+        style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle.On
+        style.photoframeLineW = 6
+        style.photoframeAngleW = 24
+        style.photoframeAngleH = 24
+        style.colorAngle = UIColor(red: 0xEB/0xFF, green: 0xCB/0xFF, blue: 0x56/0xFF, alpha: 1)
+        style.isNeedShowRetangle = true
+        style.anmiationStyle = LBXScanViewAnimationStyle.NetGrid
+        style.animationImage = UIImage(named: "CodeScan.bundle/qrcode_scan_part_net")
+        
+        
+        scanQRCodeVC.scanStyle = style
+        scanQRCodeVC.scanResultDelegate = self
+        scanQRCodeVC.modalPresentationStyle = .overFullScreen
+
+        self.present(scanQRCodeVC, animated: true, completion: nil)
         
     }
 
@@ -80,34 +97,41 @@ class ViewController: UIViewController {
         return true
     }
     
-    func doEncryptPaymentData(devQRCodeInfo: String, transID:String){
+    func doPromotionVerify(devQRCodeInfo: String, transID:String){
         
-        
-        
-        guard login(name: self.accountName, password: self.accountPwd) else{
-            print("Login failed. doEncryptPaymentData abort!")
+        guard let qrcodeParser = SecuXQRCodeParser(p22QRCode: devQRCodeInfo) else{
+            self.showMessage(title: "Unsupported QRCode!", message: "")
             return
         }
         
-        let (ret, error, storeInfo) = paymentManager.getStoreInfo(devID: "4afff62e0b314266d9e1b3a48158d56134331a9f")
+        guard login(name: self.accountName, password: self.accountPwd) else{
+            self.showMessageInMainThread(title: "Login failed. doEncryptPaymentData abort!", message: "")
+            return
+        }
+        
+        let (ret, error, storeInfo) = paymentManager.getStoreInfo(devID: qrcodeParser.devIDHash)
         
         guard ret == SecuXRequestResult.SecuXRequestOK else{
-            print("Get store info. failed! error: \(error)")
+            self.showMessageInMainThread(title: "Get store info. failed!", message: "Error: \(error)")
             return
         }
         
         guard let devID = storeInfo?.devID else{
-            print("Invalid store info. no device ID")
+            self.showMessageInMainThread(title: "Invalid store info. no device ID", message: "")
             return
         }
         
-        var (doActivityRet, doActivityError) = paymentManager.doActivity(userID: self.accountName, devID: devID, coin: "DCT", token: "SPC",
-                                                                         transID: "test12345678", amount: "1", nonce: "d54343e3")
+        var (doActivityRet, doActivityError) = paymentManager.doActivity(userID: self.accountName, devID: devID,
+                                                                         coin: qrcodeParser.coin,
+                                                                         token: qrcodeParser.token,
+                                                                         transID: transID,
+                                                                         amount: qrcodeParser.amount,
+                                                                         nonce: qrcodeParser.nonce)
         if doActivityRet == SecuXRequestResult.SecuXRequestUnauthorized{
             
             //If login session timeout, relogin the merchant account
             guard login(name: self.accountName, password: self.accountPwd) else{
-                print("Login failed. doEncryptPaymentData abort!")
+                self.showMessageInMainThread(title: "Login failed. doEncryptPaymentData abort!", message: "")
                 return
             }
             
@@ -115,7 +139,33 @@ class ViewController: UIViewController {
                                                                          transID: "test12345678", amount: "1", nonce: "d54343e3")
         }
         
-        print("doEncryptPaymentDataTest result \(doActivityRet), \(doActivityError)")
+        if doActivityRet == SecuXRequestResult.SecuXRequestOK{
+            self.showMessageInMainThread(title: "doEncryptPaymentDataTest result successfully!", message: "")
+        }else{
+            self.showMessageInMainThread(title: "doEncryptPaymentDataTest result failed!", message: "\(doActivityError)")
+        }
     }
+    
 }
 
+extension ViewController: LBXScanViewControllerDelegate{
+    func scanFinished(scanResult: LBXScanResult, error: String?) {
+        
+        scanQRCodeVC.dismiss(animated: false, completion: nil)
+        print("scan ret = \(scanResult.strScanned ?? "")")
+        
+        if let infoStr = scanResult.strScanned{
+            
+            DispatchQueue.global().async {
+                self.showProgress(info: "Processing...")
+                self.doPromotionVerify(devQRCodeInfo:infoStr, transID: "Test0001")
+                self.hideProgress()
+            }
+            return
+        }
+        
+        self.showMessage(title: "Invalid QRCode!", message: "Please try again.")
+    }
+    
+    
+}

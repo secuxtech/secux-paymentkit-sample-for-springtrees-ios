@@ -24,6 +24,8 @@
 	<string>APP needs to use the phone's BLE</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>APP needs to use the phone's BLE</string>
+	<key>NSCameraUsageDescription</key>
+	<string>APP needs to use the camera to scan QRCode</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

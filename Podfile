@@ -7,5 +7,5 @@ target 'SecuXPaymentKitSample' do
 
   # Pods for SecuXPaymentKitSample
   pod 'secux-paymentkit-v2'
-
+  pod 'swiftScan', :git => 'https://github.com/MxABC/swiftScan.git'
 end

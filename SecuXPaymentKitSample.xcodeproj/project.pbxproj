@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E2357F424EE3F5A0053762B /* CodeScan.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2E2357F324EE3F5A0053762B /* CodeScan.bundle */; };
+		2E2357F624EE45420053762B /* SecuXQRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2357F524EE45420053762B /* SecuXQRCodeParser.swift */; };
+		2E2357F824EE4B6F0053762B /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2357F724EE4B6F0053762B /* ProgressViewController.swift */; };
+		2E2357FA24EE4BE60053762B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2357F924EE4BE60053762B /* BaseViewController.swift */; };
 		2EA883F424E10FD100207283 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA883F324E10FD100207283 /* AppDelegate.swift */; };
 		2EA883F624E10FD100207283 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA883F524E10FD100207283 /* SceneDelegate.swift */; };
 		2EA883F824E10FD100207283 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA883F724E10FD100207283 /* ViewController.swift */; };
@@ -17,6 +21,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E2357F324EE3F5A0053762B /* CodeScan.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CodeScan.bundle; sourceTree = "<group>"; };
+		2E2357F524EE45420053762B /* SecuXQRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuXQRCodeParser.swift; sourceTree = "<group>"; };
+		2E2357F724EE4B6F0053762B /* ProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
+		2E2357F924EE4BE60053762B /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		2EA883F024E10FD100207283 /* SecuXPaymentKitSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecuXPaymentKitSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EA883F324E10FD100207283 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2EA883F524E10FD100207283 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,9 +71,13 @@
 		2EA883F224E10FD100207283 /* SecuXPaymentKitSample */ = {
 			isa = PBXGroup;
 			children = (
+				2E2357F324EE3F5A0053762B /* CodeScan.bundle */,
 				2EA883F324E10FD100207283 /* AppDelegate.swift */,
 				2EA883F524E10FD100207283 /* SceneDelegate.swift */,
 				2EA883F724E10FD100207283 /* ViewController.swift */,
+				2E2357F924EE4BE60053762B /* BaseViewController.swift */,
+				2E2357F524EE45420053762B /* SecuXQRCodeParser.swift */,
+				2E2357F724EE4B6F0053762B /* ProgressViewController.swift */,
 				2EA883F924E10FD100207283 /* Main.storyboard */,
 				2EA883FC24E10FD400207283 /* Assets.xcassets */,
 				2EA883FE24E10FD400207283 /* LaunchScreen.storyboard */,
@@ -154,6 +166,7 @@
 				2EA8840024E10FD400207283 /* LaunchScreen.storyboard in Resources */,
 				2EA883FD24E10FD400207283 /* Assets.xcassets in Resources */,
 				2EA883FB24E10FD100207283 /* Main.storyboard in Resources */,
+				2E2357F424EE3F5A0053762B /* CodeScan.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,9 +219,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E2357F824EE4B6F0053762B /* ProgressViewController.swift in Sources */,
 				2EA883F824E10FD100207283 /* ViewController.swift in Sources */,
+				2E2357F624EE45420053762B /* SecuXQRCodeParser.swift in Sources */,
 				2EA883F424E10FD100207283 /* AppDelegate.swift in Sources */,
 				2EA883F624E10FD100207283 /* SceneDelegate.swift in Sources */,
+				2E2357FA24EE4BE60053762B /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
