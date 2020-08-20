@@ -14,8 +14,7 @@ class BaseViewController: UIViewController {
     
     var theProgress  = ProgressViewController()
 
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,17 +23,6 @@ class BaseViewController: UIViewController {
         self.theProgress.modalPresentationStyle = .overFullScreen
 
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        
-    }
-    
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
 
     
     func showMessage(title: String, message: String){
