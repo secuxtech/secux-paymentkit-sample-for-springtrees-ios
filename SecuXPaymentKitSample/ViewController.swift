@@ -99,27 +99,135 @@ class ViewController: BaseViewController {
     
     func doPromotionVerify(devQRCodeInfo: String, transID:String){
         
+        self.showProgress(info: "Processing...")
         guard let qrcodeParser = SecuXQRCodeParser(p22QRCode: devQRCodeInfo) else{
-            self.showMessage(title: "Unsupported QRCode!", message: "")
+            self.showMessageInMainThread(title: "Unsupported QRCode!", message: "", closeProgress: true)
             return
         }
         
+        /*
+         Login Merchant Account
+         
+         Server:
+              POST /api/Admin/Login
+         
+         param:
+             {
+                 "account": "account",
+                 "password": "account"
+             }
+         
+        */
         guard login(name: self.accountName, password: self.accountPwd) else{
-            self.showMessageInMainThread(title: "Login failed. doEncryptPaymentData abort!", message: "")
+            self.showMessageInMainThread(title: "Login failed. doEncryptPaymentData abort!", message: "", closeProgress: true)
             return
         }
         
-        let (ret, error, storeInfo) = paymentManager.getStoreInfo(devID: qrcodeParser.devIDHash)
+        /*
+         Get Store Info
+         
+         Server:
+              POST /api/Terminal/GetStore
+         
+         param:
+             {
+                 "deviceIDhash": "41193d32d520e114a3730d458f4389b5b9a7114d"
+             }
+         
+         return:
+             {
+               "storeCode": "568a88ed64b5426eb747f7db00763494",
+               "name": "SecuX Cafe",
+               "deviceId": "4ab10000726b",
+               "icon": "",
+               "scanTimeout": 10,
+               "checkRSSI": -80,
+               "connectionTimeout": 30,
+               "supportedSymbol": [
+                 [
+                   "DCT",
+                   "SPC"
+                 ]
+               ],
+               "supportedPromotion": [
+                 {
+                   "type": "Promotion",
+                   "code": "test",
+                   "name": "q",
+                   "icon": ""
+                 }
+               ]
+             }
+         
+        */
         
-        guard ret == SecuXRequestResult.SecuXRequestOK else{
-            self.showMessageInMainThread(title: "Get store info. failed!", message: "Error: \(error)")
+        
+        let (ret, error, info) = paymentManager.getStoreInfo(devID: qrcodeParser.devIDHash)
+     
+        
+        guard ret == SecuXRequestResult.SecuXRequestOK, let storeInfo = info else{
+            self.showMessageInMainThread(title: "Get store info. failed!", message: "Error: \(error)", closeProgress: true)
             return
         }
         
-        guard let devID = storeInfo?.devID else{
-            self.showMessageInMainThread(title: "Invalid store info. no device ID", message: "")
+        guard storeInfo.devID.count > 0 else{
+            self.showMessageInMainThread(title: "Invalid store info. no device ID", message: "", closeProgress: true)
             return
         }
+        
+        /*
+        guard let promotionInfo = storeInfo.getPromotionDetails(code: qrcodeParser.token) else{
+            self.showMessageInMainThread(title: "Invalid store protmotion code", message: "")
+            return
+        }
+        */
+        guard let promotionInfo = storeInfo.getPromotionDetails(code: "test") else{
+            self.showMessageInMainThread(title: "Invalid store protmotion code", message: "", closeProgress: true)
+            return
+        }
+        
+        DispatchQueue.main.async {
+            
+            self.hideProgressSync()
+        
+            let alertController = UIAlertController(title: promotionInfo.type, message: nil, preferredStyle: .actionSheet)
+            alertController.view.translatesAutoresizingMaskIntoConstraints = false
+            alertController.view.heightAnchor.constraint(equalToConstant: 500).isActive = true
+            
+            let customView = PromotionDetailsView()
+            alertController.view.addSubview(customView)
+            customView.translatesAutoresizingMaskIntoConstraints = false
+            customView.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 45).isActive = true
+            customView.rightAnchor.constraint(equalTo: alertController.view.rightAnchor, constant: -10).isActive = true
+            customView.leftAnchor.constraint(equalTo: alertController.view.leftAnchor, constant: 10).isActive = true
+            customView.bottomAnchor.constraint(equalTo: alertController.view.bottomAnchor, constant: -130).isActive = true
+            
+            customView.setup(storeInfo: storeInfo, promoInfo: promotionInfo)
+
+    
+            let selectAction = UIAlertAction(title: "Confirm", style: .default) { (action) in
+               
+                self.showProgress(info: "")
+                DispatchQueue.global().async {
+                    self.confirmPromotion(devID: storeInfo.devID, transID: transID, qrcodeParser: qrcodeParser)
+                }
+                
+            }
+
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(selectAction)
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
+    }
+    
+    
+    func confirmPromotion(devID:String, transID:String, qrcodeParser:SecuXQRCodeParser){
+        /*
+         
+         */
+        
         
         var (doActivityRet, doActivityError) = paymentManager.doActivity(userID: self.accountName, devID: devID,
                                                                          coin: qrcodeParser.coin,
@@ -127,11 +235,13 @@ class ViewController: BaseViewController {
                                                                          transID: transID,
                                                                          amount: qrcodeParser.amount,
                                                                          nonce: qrcodeParser.nonce)
+        
         if doActivityRet == SecuXRequestResult.SecuXRequestUnauthorized{
             
             //If login session timeout, relogin the merchant account
             guard login(name: self.accountName, password: self.accountPwd) else{
-                self.showMessageInMainThread(title: "Login failed. doEncryptPaymentData abort!", message: "")
+                //hideProgress()
+                self.showMessageInMainThread(title: "Login failed. doEncryptPaymentData abort!", message: "",closeProgress: true)
                 return
             }
             
@@ -143,10 +253,11 @@ class ViewController: BaseViewController {
                                                                         nonce: qrcodeParser.nonce)
         }
         
+ 
         if doActivityRet == SecuXRequestResult.SecuXRequestOK{
-            self.showMessageInMainThread(title: "doEncryptPaymentDataTest result successfully!", message: "")
+            self.showMessageInMainThread(title: "doEncryptPaymentDataTest result successfully!", message: "", closeProgress: true)
         }else{
-            self.showMessageInMainThread(title: "doEncryptPaymentDataTest result failed!", message: "\(doActivityError)")
+            self.showMessageInMainThread(title: "doEncryptPaymentDataTest result failed!", message: "\(doActivityError)", closeProgress: true)
         }
     }
     
@@ -161,9 +272,9 @@ extension ViewController: LBXScanViewControllerDelegate{
         if let infoStr = scanResult.strScanned{
             
             DispatchQueue.global().async {
-                self.showProgress(info: "Processing...")
+                
                 self.doPromotionVerify(devQRCodeInfo:infoStr, transID: "Test0001")
-                self.hideProgress()
+                
             }
             return
         }

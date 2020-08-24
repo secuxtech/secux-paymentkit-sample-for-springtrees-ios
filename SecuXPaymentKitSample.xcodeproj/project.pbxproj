@@ -17,6 +17,7 @@
 		2EA883FB24E10FD100207283 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EA883F924E10FD100207283 /* Main.storyboard */; };
 		2EA883FD24E10FD400207283 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EA883FC24E10FD400207283 /* Assets.xcassets */; };
 		2EA8840024E10FD400207283 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EA883FE24E10FD400207283 /* LaunchScreen.storyboard */; };
+		2EB30BCD24F38BD1008D3DD4 /* PromotionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB30BCC24F38BD1008D3DD4 /* PromotionDetailsView.swift */; };
 		F227584205AB956F1FE44054 /* Pods_SecuXPaymentKitSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54201FC817EF14676DEDBF92 /* Pods_SecuXPaymentKitSample.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		2EA883FC24E10FD400207283 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EA883FF24E10FD400207283 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2EA8840124E10FD400207283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2EB30BCC24F38BD1008D3DD4 /* PromotionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionDetailsView.swift; sourceTree = "<group>"; };
 		54201FC817EF14676DEDBF92 /* Pods_SecuXPaymentKitSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SecuXPaymentKitSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6042AE7CBBB35B6CF8A6A4BA /* Pods-SecuXPaymentKitSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecuXPaymentKitSample.release.xcconfig"; path = "Target Support Files/Pods-SecuXPaymentKitSample/Pods-SecuXPaymentKitSample.release.xcconfig"; sourceTree = "<group>"; };
 		CCA9F096526F6FD8775C61F5 /* Pods-SecuXPaymentKitSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecuXPaymentKitSample.debug.xcconfig"; path = "Target Support Files/Pods-SecuXPaymentKitSample/Pods-SecuXPaymentKitSample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				2E2357F924EE4BE60053762B /* BaseViewController.swift */,
 				2E2357F524EE45420053762B /* SecuXQRCodeParser.swift */,
 				2E2357F724EE4B6F0053762B /* ProgressViewController.swift */,
+				2EB30BCC24F38BD1008D3DD4 /* PromotionDetailsView.swift */,
 				2EA883F924E10FD100207283 /* Main.storyboard */,
 				2EA883FC24E10FD400207283 /* Assets.xcassets */,
 				2EA883FE24E10FD400207283 /* LaunchScreen.storyboard */,
@@ -220,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E2357F824EE4B6F0053762B /* ProgressViewController.swift in Sources */,
+				2EB30BCD24F38BD1008D3DD4 /* PromotionDetailsView.swift in Sources */,
 				2EA883F824E10FD100207283 /* ViewController.swift in Sources */,
 				2E2357F624EE45420053762B /* SecuXQRCodeParser.swift in Sources */,
 				2EA883F424E10FD100207283 /* AppDelegate.swift in Sources */,

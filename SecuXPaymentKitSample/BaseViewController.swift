@@ -33,12 +33,20 @@ class BaseViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func showMessageInMainThread(title: String, message: String){
+    func showMessageInMainThread(title: String, message: String, closeProgress:Bool = false){
         DispatchQueue.main.async {
+            if closeProgress{
+                self.theProgress.dismiss(animated: true, completion: nil)
+            }
             self.showMessage(title: title, message: message)
         }
     }
     
+    
+    func hideProgressSync(){
+        self.theProgress.dismiss(animated: true, completion: nil)
+    }
+
     
     func hideProgress(){
         DispatchQueue.main.async {
