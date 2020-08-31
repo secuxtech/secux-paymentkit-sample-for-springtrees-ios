@@ -14,6 +14,7 @@ class SecuXQRCodeParser {
     
     public var theQRCodeStr = ""
     public var amount = ""
+    public var refill = ""
     public var coin = ""
     public var token = ""
     public var nonce = ""
@@ -26,11 +27,16 @@ class SecuXQRCodeParser {
             return nil
         }
             
-        guard let amount = qrcodeJson["amount"],
-            let coinType = qrcodeJson["coinType"],
+        guard let coinType = qrcodeJson["coinType"],
             let nonce = qrcodeJson["nonce"],
             let hashID = qrcodeJson["deviceIDhash"] else{
                 return nil
+        }
+        
+        let amount = qrcodeJson["amount"] ?? ""
+        let refill = qrcodeJson["refill"] ?? ""
+        if amount.count == 0, refill.count == 0 {
+            return nil
         }
         
         let coinTypeInfoArr = coinType.split(separator: ":")
@@ -38,7 +44,9 @@ class SecuXQRCodeParser {
             return nil
         }
         
+    
         self.amount = amount
+        self.refill = refill
         self.coin = String(coinTypeInfoArr[0])
         self.token = String(coinTypeInfoArr[1])
         self.nonce = nonce

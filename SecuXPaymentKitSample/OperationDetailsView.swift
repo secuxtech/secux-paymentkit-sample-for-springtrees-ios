@@ -9,7 +9,7 @@
 import UIKit
 import secux_paymentkit_v2
 
-class PromotionDetailsView: UIView {
+class OperationDetailsView: UIView {
     
     
     lazy var storeNameLabel : UILabel = {
@@ -131,7 +131,16 @@ class PromotionDetailsView: UIView {
         self.storeImg.image = storeInfo.logo
         self.storeNameLabel.text = storeInfo.name
         self.nameLabel.text = "Promotion Name:\n" + promoInfo.name
-        self.descLabel.text = "Promotion Desc:" + promoInfo.desc
+        self.descLabel.text = "Promotion Desc:\n" + promoInfo.desc
+        
+    }
+    
+    func setup(storeInfo:SecuXStoreInfo, coin:String, token:String, amount:String){
+        
+        self.storeImg.image = storeInfo.logo
+        self.storeNameLabel.text = storeInfo.name
+        self.nameLabel.text = "CoinToken:  " + coin + ":" + token
+        self.descLabel.text = "Amount:  " + amount
         
     }
 
