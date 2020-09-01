@@ -49,6 +49,10 @@ Must login the assigned merchant account before calling payment related APIs.
 
 Note: <span style="color:red">Login session is valid for 30 minutes</span>. To continue use after 30 minutes, relogin is required.
 
+SecuX Server API:
+<a href="https://documenter.getpostman.com/view/9715663/SzfDvj4S?version=latest#76b3bbc9-2853-42c4-823b-3e0d47d58cf6">/api/Admin/Login</a>
+
+
 #### <u>Declaration</u>
 ```swift
     func loginMerchantAccount(accountName:String, password:String) 
@@ -95,6 +99,10 @@ Create SecuXPaymentManager object
 1. <b>Get store information</b>
 
 Get store information via the hashed device ID in P22 QRCode.
+
+SecuX Server API:
+<a href="https://documenter.getpostman.com/view/9715663/SzfDvj4S?version=latest#136613f8-648a-4c76-b4bc-9edc00943aad">/api/Terminal/GetStore</a>
+
 #### <u>Declaration</u>
 ```swift
     func getStoreInfo(devID:String) -> (SecuXRequestResult, String, SecuXStoreInfo?)
@@ -135,6 +143,9 @@ Get store information via the hashed device ID in P22 QRCode.
 2. <b>Do promotation activity</b>
 
 Confirm the promotation acitvity to the P22 device.
+
+SecuX Server API:
+<a href="https://documenter.getpostman.com/view/9715663/SzfDvj4S?version=latest#ff393d68-3045-451f-b175-3721f3281d74">/api/B2B/ProduceCipher</a>
 
 #### <u>Declaration</u>
 ```swift
