@@ -144,8 +144,12 @@ SecuX Server API:
 
 Confirm the promotation acitvity to the P22 device.
 
-SecuX Server API:
+Encrypt operation data SecuX Server API:
 <a href="https://documenter.getpostman.com/view/9715663/SzfDvj4S?version=latest#ff393d68-3045-451f-b175-3721f3281d74">/api/B2B/ProduceCipher</a>
+
+Please refer to the <a herf="https://github.com/secuxtech/secux-paymentdevicekit-framework-sample-ios">secux_paymentdevicekit</a> for the APIs below:
+Get payment device ivKey API
+Send encrypted operation data to device API
 
 #### <u>Declaration</u>
 ```swift
