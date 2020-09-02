@@ -146,16 +146,22 @@ Confirm the promotation/payment/refill acitvity to the P22 device.
 
 ![Screenshot](doActivityProcedure.png)
 
-Encrypt operation data SecuX Server API:
+SecuX Server API:
+
+- Encrypt operation data 
 <a href="https://documenter.getpostman.com/view/9715663/SzfDvj4S?version=latest#ff393d68-3045-451f-b175-3721f3281d74">/api/B2B/ProduceCipher</a>
+
+SecuX Device APIs:
 
 Please refer to the 
 <a href="https://github.com/secuxtech/secux-paymentdevicekit-framework-sample-ios">secux_paymentdevicekit</a> 
 for the APIs below:
 
-Get P22 ivKey API
+- Get P22 ivKey API
 
-Send encrypted operation data to P22 API
+- Cancel operation 
+
+- Send encrypted operation data to P22 API
 
 #### <u>Declaration</u>
 ```swift
