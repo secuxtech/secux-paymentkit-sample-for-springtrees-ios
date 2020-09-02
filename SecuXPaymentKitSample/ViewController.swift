@@ -59,7 +59,7 @@ class ViewController: BaseViewController {
         return btn
     }()
     
-    let scanQRCodeVC = LBXScanViewController()
+    var scanQRCodeVC : LBXScanViewController?
     
     private let accountManager = SecuXAccountManager()
     private let paymentManager = SecuXPaymentManager()
@@ -89,12 +89,12 @@ class ViewController: BaseViewController {
         style.anmiationStyle = LBXScanViewAnimationStyle.NetGrid
         style.animationImage = UIImage(named: "CodeScan.bundle/qrcode_scan_part_net")
         
-        
-        scanQRCodeVC.scanStyle = style
-        scanQRCodeVC.scanResultDelegate = self
-        scanQRCodeVC.modalPresentationStyle = .overFullScreen
+        scanQRCodeVC = LBXScanViewController()
+        scanQRCodeVC!.scanStyle = style
+        scanQRCodeVC!.scanResultDelegate = self
+        scanQRCodeVC!.modalPresentationStyle = .overFullScreen
 
-        self.present(scanQRCodeVC, animated: true, completion: nil)
+        self.present(scanQRCodeVC!, animated: true, completion: nil)
         
     }
 
@@ -119,7 +119,7 @@ class ViewController: BaseViewController {
             
             let alertController = UIAlertController(title: promotionInfo.type, message: nil, preferredStyle: .actionSheet)
             alertController.view.translatesAutoresizingMaskIntoConstraints = false
-            alertController.view.heightAnchor.constraint(equalToConstant: 500).isActive = true
+            alertController.view.heightAnchor.constraint(equalToConstant: 560).isActive = true
             
             let customView = OperationDetailsView()
             alertController.view.addSubview(customView)
@@ -129,7 +129,7 @@ class ViewController: BaseViewController {
             customView.leftAnchor.constraint(equalTo: alertController.view.leftAnchor, constant: 10).isActive = true
             customView.bottomAnchor.constraint(equalTo: alertController.view.bottomAnchor, constant: -130).isActive = true
             
-            customView.setup(storeInfo: storeInfo, promoInfo: promotionInfo)
+            customView.setup(storeInfo: storeInfo, promoInfo: promotionInfo, promoImgData: promotionInfo.imgData)
 
     
             let selectAction = UIAlertAction(title: "Confirm", style: .default) { (action) in
@@ -271,6 +271,10 @@ class ViewController: BaseViewController {
 extension ViewController: LBXScanViewControllerDelegate{
     func scanFinished(scanResult: LBXScanResult, error: String?) {
         
+        guard let scanQRCodeVC = self.scanQRCodeVC else{
+            return
+        }
+    
         scanQRCodeVC.dismiss(animated: false, completion: nil)
         print("scan ret = \(scanResult.strScanned ?? "")")
         
@@ -358,7 +362,7 @@ extension ViewController: LBXScanViewControllerDelegate{
                 
         
                 if qrcodeParser.coin == "$"{
-                    guard let promotionInfo = storeInfo.getPromotionDetails(code: "test") else{
+                    guard let promotionInfo = storeInfo.getPromotionDetails(code: qrcodeParser.token) else{
                        self.showMessageInMainThread(title: "Invalid store protmotion code", message: "", closeProgress: true)
                        return
                     }

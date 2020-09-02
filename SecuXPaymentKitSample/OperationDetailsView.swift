@@ -126,12 +126,35 @@ class OperationDetailsView: UIView {
         return label
     }()
     
-    func setup(storeInfo:SecuXStoreInfo, promoInfo:SecuXPromotion){
+    lazy var promotionImg: UIImageView = {
+
+        let imageView = UIImageView()
+        //imageView.image = UIImage(named: "storeinfo_error")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(imageView)
+        
+    
+        NSLayoutConstraint.activate([
+           
+            imageView.topAnchor.constraint(equalTo: self.descLabel.bottomAnchor, constant: 20),
+            imageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
+           
+        ])
+        
+    
+        return imageView
+    }()
+    
+    func setup(storeInfo:SecuXStoreInfo, promoInfo:SecuXPromotion, promoImgData:Data?){
         
         self.storeImg.image = storeInfo.logo
         self.storeNameLabel.text = storeInfo.name
         self.nameLabel.text = "Promotion Name:\n" + promoInfo.name
         self.descLabel.text = "Promotion Desc:\n" + promoInfo.desc
+        
+        if let imgData = promoImgData{
+            self.promotionImg.image = UIImage(data: imgData)
+        }
         
     }
     
