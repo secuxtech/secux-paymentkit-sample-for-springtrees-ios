@@ -1,3 +1,6 @@
+# <img src="icon.png" width="30">  SecuXPaymentKitSample  
+Sample APP for using secux-paymentkit-v2
+
 # secux-paymentkit-v2
 
 [![Version](https://img.shields.io/cocoapods/v/secux-paymentkit-v2.svg?style=flat)](https://cocoapods.org/pods/secux-paymentkit-v2)
@@ -21,7 +24,7 @@ pod 'secux-paymentkit-v2'
 
 ### Add bluetooth privacy permissions in the plist
 
-![Screenshot](Readme_PlistImg.png)
+![plist](Readme_PlistImg.png)
 
 ### Import the module
 
@@ -144,7 +147,7 @@ SecuX Server API:
 
 Confirm the promotation/payment/refill acitvity to the P22 device.
 
-![Screenshot](doActivityProcedure.png)
+![Procedure](doActivityProcedure.png)
 
 SecuX Server API:
 
