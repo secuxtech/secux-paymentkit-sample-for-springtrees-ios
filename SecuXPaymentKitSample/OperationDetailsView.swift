@@ -20,7 +20,12 @@ class OperationDetailsView: UIView {
         
         label.font = UIFont(name: "Helvetica-Bold", size: 18)
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = UIColor(red: 0x75/0xFF, green: 0x75/0xFF, blue: 0x75/0xFF, alpha: 1)
+        
+        if self.traitCollection.userInterfaceStyle == .dark {
+            label.textColor = .white
+        }else{
+            label.textColor = UIColor(red: 0x75/0xFF, green: 0x75/0xFF, blue: 0x75/0xFF, alpha: 1)
+        }
         label.textAlignment = NSTextAlignment.center
         
         label.numberOfLines = 0
@@ -71,7 +76,12 @@ class OperationDetailsView: UIView {
         
         label.font = UIFont(name: "Arial", size: 18)
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = UIColor(red: 0x1F/0xFF, green: 0x20/0xFF, blue: 0x20/0xFF, alpha: 1)
+        
+        if self.traitCollection.userInterfaceStyle == .dark {
+            label.textColor = .white
+        }else{
+            label.textColor = UIColor(red: 0x1F/0xFF, green: 0x20/0xFF, blue: 0x20/0xFF, alpha: 1)
+        }
         label.textAlignment = NSTextAlignment.left
         
         label.numberOfLines = 0
@@ -85,7 +95,8 @@ class OperationDetailsView: UIView {
         NSLayoutConstraint.activate([
         
             label.topAnchor.constraint(equalTo: self.storeImg.bottomAnchor, constant: 30),
-            label.leftAnchor.constraint(equalTo: self.leftAnchor, constant:20)
+            label.leftAnchor.constraint(equalTo: self.leftAnchor, constant:20),
+            label.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
         
         ])
         
@@ -102,7 +113,12 @@ class OperationDetailsView: UIView {
         
         label.font = UIFont(name: "Arial", size: 18)
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = UIColor(red: 0x1F/0xFF, green: 0x20/0xFF, blue: 0x20/0xFF, alpha: 1)
+        
+        if self.traitCollection.userInterfaceStyle == .dark {
+            label.textColor = .white
+        }else{
+            label.textColor = UIColor(red: 0x1F/0xFF, green: 0x20/0xFF, blue: 0x20/0xFF, alpha: 1)
+        }
         label.textAlignment = NSTextAlignment.left
         
         label.numberOfLines = 0
@@ -117,8 +133,8 @@ class OperationDetailsView: UIView {
         
             label.topAnchor.constraint(equalTo: self.nameLabel.bottomAnchor, constant: 20),
             label.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
-            label.widthAnchor.constraint(equalToConstant: 350)
-        
+            label.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
+            
         
         ])
         
@@ -136,8 +152,8 @@ class OperationDetailsView: UIView {
     
         NSLayoutConstraint.activate([
            
-            imageView.topAnchor.constraint(equalTo: self.descLabel.bottomAnchor, constant: 20),
-            imageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
+            imageView.topAnchor.constraint(equalTo: self.descLabel.bottomAnchor, constant: 10),
+            imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0)
            
         ])
         
@@ -147,6 +163,7 @@ class OperationDetailsView: UIView {
     
     func setup(storeInfo:SecuXStoreInfo, promoInfo:SecuXPromotion, promoImgData:Data?){
         
+        //self.backgroundColor = .blue
         self.storeImg.image = storeInfo.logo
         self.storeNameLabel.text = storeInfo.name
         self.nameLabel.text = "Promotion Name:\n" + promoInfo.name
@@ -160,6 +177,7 @@ class OperationDetailsView: UIView {
     
     func setup(storeInfo:SecuXStoreInfo, coin:String, token:String, amount:String){
         
+        
         self.storeImg.image = storeInfo.logo
         self.storeNameLabel.text = storeInfo.name
         self.nameLabel.text = "CoinToken:  " + coin + ":" + token
@@ -170,7 +188,7 @@ class OperationDetailsView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
+        
         
     }
     

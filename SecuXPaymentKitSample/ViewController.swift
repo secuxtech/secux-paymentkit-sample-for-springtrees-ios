@@ -96,6 +96,7 @@ class ViewController: BaseViewController {
 
         self.present(scanQRCodeVC!, animated: true, completion: nil)
         
+        
     }
 
     func login(name:String, password:String) -> Bool{
@@ -117,17 +118,26 @@ class ViewController: BaseViewController {
             
             self.hideProgress()
             
-            let alertController = UIAlertController(title: promotionInfo.type, message: nil, preferredStyle: .actionSheet)
+            var style = UIAlertController.Style.actionSheet
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                style = UIAlertController.Style.alert
+                
+            }
+            
+            let alertController = UIAlertController(title: promotionInfo.type, message: nil, preferredStyle: style)
             alertController.view.translatesAutoresizingMaskIntoConstraints = false
             alertController.view.heightAnchor.constraint(equalToConstant: 560).isActive = true
-            
+           
+        
             let customView = OperationDetailsView()
-            alertController.view.addSubview(customView)
             customView.translatesAutoresizingMaskIntoConstraints = false
-            customView.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 45).isActive = true
-            customView.rightAnchor.constraint(equalTo: alertController.view.rightAnchor, constant: -10).isActive = true
-            customView.leftAnchor.constraint(equalTo: alertController.view.leftAnchor, constant: 10).isActive = true
-            customView.bottomAnchor.constraint(equalTo: alertController.view.bottomAnchor, constant: -130).isActive = true
+            alertController.view.addSubview(customView)
+            
+            customView.topAnchor.constraint(equalTo: alertController.view.subviews[0].topAnchor, constant: 45).isActive = true
+            customView.rightAnchor.constraint(equalTo: alertController.view.subviews[0].rightAnchor, constant: -10).isActive = true
+            customView.leftAnchor.constraint(equalTo: alertController.view.subviews[0].leftAnchor, constant: 10).isActive = true
+            customView.bottomAnchor.constraint(equalTo: alertController.view.subviews[0].bottomAnchor, constant: -130).isActive = true
+            
             
             customView.setup(storeInfo: storeInfo, promoInfo: promotionInfo, promoImgData: promotionInfo.imgData)
 
@@ -156,17 +166,23 @@ class ViewController: BaseViewController {
             
             self.hideProgress()
             
-            let alertController = UIAlertController(title: "Payment", message: nil, preferredStyle: .actionSheet)
+            var style = UIAlertController.Style.actionSheet
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                style = UIAlertController.Style.alert
+            }
+            
+            let alertController = UIAlertController(title: "Payment", message: nil, preferredStyle: style)
             alertController.view.translatesAutoresizingMaskIntoConstraints = false
-            alertController.view.heightAnchor.constraint(equalToConstant: 500).isActive = true
+            alertController.view.heightAnchor.constraint(equalToConstant: 400).isActive = true
             
             let customView = OperationDetailsView()
             alertController.view.addSubview(customView)
             customView.translatesAutoresizingMaskIntoConstraints = false
-            customView.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 45).isActive = true
-            customView.rightAnchor.constraint(equalTo: alertController.view.rightAnchor, constant: -10).isActive = true
-            customView.leftAnchor.constraint(equalTo: alertController.view.leftAnchor, constant: 10).isActive = true
-            customView.bottomAnchor.constraint(equalTo: alertController.view.bottomAnchor, constant: -130).isActive = true
+            customView.topAnchor.constraint(equalTo: alertController.view.subviews[0].topAnchor, constant: 45).isActive = true
+            customView.rightAnchor.constraint(equalTo: alertController.view.subviews[0].rightAnchor, constant: -10).isActive = true
+            customView.leftAnchor.constraint(equalTo: alertController.view.subviews[0].leftAnchor, constant: 10).isActive = true
+            customView.bottomAnchor.constraint(equalTo: alertController.view.subviews[0].bottomAnchor, constant: -130).isActive = true
+            
             
             customView.setup(storeInfo: storeInfo, coin: qrcodeParser.coin, token: qrcodeParser.token, amount: qrcodeParser.amount)
 
@@ -194,17 +210,24 @@ class ViewController: BaseViewController {
 
             self.hideProgress()
             
-            let alertController = UIAlertController(title: "Refill", message: nil, preferredStyle: .actionSheet)
+   
+            var style = UIAlertController.Style.actionSheet
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                style = UIAlertController.Style.alert
+            }
+            
+            let alertController = UIAlertController(title: "Refill", message: nil, preferredStyle: style)
             alertController.view.translatesAutoresizingMaskIntoConstraints = false
-            alertController.view.heightAnchor.constraint(equalToConstant: 500).isActive = true
+            alertController.view.heightAnchor.constraint(equalToConstant: 400).isActive = true
             
             let customView = OperationDetailsView()
             alertController.view.addSubview(customView)
             customView.translatesAutoresizingMaskIntoConstraints = false
-            customView.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 45).isActive = true
-            customView.rightAnchor.constraint(equalTo: alertController.view.rightAnchor, constant: -10).isActive = true
-            customView.leftAnchor.constraint(equalTo: alertController.view.leftAnchor, constant: 10).isActive = true
-            customView.bottomAnchor.constraint(equalTo: alertController.view.bottomAnchor, constant: -130).isActive = true
+            customView.topAnchor.constraint(equalTo: alertController.view.subviews[0].topAnchor, constant: 45).isActive = true
+            customView.rightAnchor.constraint(equalTo: alertController.view.subviews[0].rightAnchor, constant: -10).isActive = true
+            customView.leftAnchor.constraint(equalTo: alertController.view.subviews[0].leftAnchor, constant: 10).isActive = true
+            customView.bottomAnchor.constraint(equalTo: alertController.view.subviews[0].bottomAnchor, constant: -130).isActive = true
+            
             
             customView.setup(storeInfo: storeInfo, coin: qrcodeParser.coin, token: qrcodeParser.token, amount: qrcodeParser.refill)
 
