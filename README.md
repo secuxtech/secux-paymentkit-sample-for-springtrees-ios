@@ -1,5 +1,6 @@
 # <img src="icon.png" width="30">  SecuXPaymentKitSample  
-Sample APP for using secux-paymentkit-v2
+The secux-paymentkit-sample-for-springtrees-ios is a sample APP for showing how to scan
+the QRCode from P22 and confirm the promotion to the P22 device via secux-paymentkit-v2. 
 
 # secux-paymentkit-v2
 
@@ -33,11 +34,6 @@ pod 'secux-paymentkit-v2'
 ```
 
 ## Usage
-
-The secux-paymentkit-sample-for-springtrees-ios is a sample APP for showing how to scan
-the QRCode from P22 and confirm the promotion to the P22 device via secux-paymentkit-v2. 
-
-## APIs
 
 ### SecuXAccount related API
 
@@ -143,9 +139,9 @@ SecuX Server API:
     }
 ```
 
-2. <b>Do promotation / payment / refill activity</b>
+2. <b>Do promotation / payment / refill operation</b>
 
-Confirm the promotation/payment/refill acitvity to the P22 device.
+Confirm the promotation/payment/refill operation to the P22 device.
 
 ![Procedure](doActivityProcedure.png)
 

@@ -136,7 +136,7 @@ class ViewController: BaseViewController {
                
                 self.showProgress(info: "")
                 DispatchQueue.global().async {
-                    self.confirmOperation(devID: storeInfo.devID, transID: "Promotion0001", qrcodeParser: qrcodeParser)
+                    self.confirmOperation(devID: storeInfo.devID, transID: "Promotion0001", qrcodeParser: qrcodeParser, type: "promotion")
                 }
                 
             }
@@ -175,7 +175,7 @@ class ViewController: BaseViewController {
                
                 self.showProgress(info: "")
                 DispatchQueue.global().async {
-                    self.confirmOperation(devID: storeInfo.devID, transID: "Payment0001", qrcodeParser: qrcodeParser)
+                    self.confirmOperation(devID: storeInfo.devID, transID: "Payment0001", qrcodeParser: qrcodeParser, type: "payment")
                 }
                 
             }
@@ -213,7 +213,7 @@ class ViewController: BaseViewController {
                
                 self.showProgress(info: "")
                 DispatchQueue.global().async {
-                    self.confirmOperation(devID: storeInfo.devID, transID: "Refill0001", qrcodeParser: qrcodeParser)
+                    self.confirmOperation(devID: storeInfo.devID, transID: "Refill0001", qrcodeParser: qrcodeParser, type: "refill")
                 }
                 
             }
@@ -227,7 +227,7 @@ class ViewController: BaseViewController {
     }
     
     
-    func confirmOperation(devID:String, transID:String, qrcodeParser:SecuXQRCodeParser){
+    func confirmOperation(devID:String, transID:String, qrcodeParser:SecuXQRCodeParser, type:String){
 
         var amount = qrcodeParser.amount
         if amount.count == 0{

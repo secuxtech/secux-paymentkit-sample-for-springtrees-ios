@@ -20,6 +20,7 @@ enum SecuXStoreInfoError: Error {
     case invalidCoinTokenInfo
 }
 
+
 public class SecuXPromotion{
     /*
      {
@@ -93,7 +94,6 @@ public class SecuXPromotion{
         }
                 
     }
-    
 }
 
 public class SecuXStoreInfo {
