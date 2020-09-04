@@ -1,7 +1,7 @@
 PODS:
   - secux-paymentdevicekit (2.0.4)
-  - secux-paymentkit-v2 (2.0.1):
-    - secux-paymentdevicekit (~> 2.0.1)
+  - secux-paymentkit-v2 (2.0.2):
+    - secux-paymentdevicekit (~> 2.0.4)
   - swiftScan (1.2.0)
 
 DEPENDENCIES:
@@ -24,9 +24,9 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   secux-paymentdevicekit: 9cf0d0f59082699d4077c8e335051d158cf4cd8c
-  secux-paymentkit-v2: 049c8bece69f7534ceb9135f4603e4d26ece1752
+  secux-paymentkit-v2: cd0633240f7f61092d34bd9e8b6aee9137cb00d8
   swiftScan: d7f91607b1a47cc04e6eb654c2c01e2e940e337d
 
-PODFILE CHECKSUM: e1eebfabb6a86c4188e71e67d1fad35d9b064a86
+PODFILE CHECKSUM: 8565b0f92cdd9861265e936d001019e6d1c1ba42
 
 COCOAPODS: 1.10.0.beta.2

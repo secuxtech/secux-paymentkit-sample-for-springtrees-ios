@@ -64,8 +64,8 @@ class ViewController: BaseViewController {
     private let accountManager = SecuXAccountManager()
     private let paymentManager = SecuXPaymentManager()
     
-    private let accountName = "secuxdemo"
-    private let accountPwd = "secuxdemo168"
+    private let accountName = "springtreesoperator"
+    private let accountPwd = "springtrees"
     
     
     override func viewDidLoad() {
@@ -73,7 +73,7 @@ class ViewController: BaseViewController {
         
         let _ = self.scanQRCodeButton
         
-        self.accountManager.setBaseServer(url: "https://pmsweb-test.secux.io")
+        self.accountManager.setBaseServer(url: "https://pmsweb-sandbox.secuxtech.com")
     }
 
     @objc func scanQRCodeAction(){
@@ -262,7 +262,8 @@ class ViewController: BaseViewController {
                                                                          token: qrcodeParser.token,
                                                                          transID: transID,
                                                                          amount: amount,
-                                                                         nonce: qrcodeParser.nonce)
+                                                                         nonce: qrcodeParser.nonce,
+                                                                         type:type)
         
         if doActivityRet == SecuXRequestResult.SecuXRequestUnauthorized{
             
@@ -278,7 +279,8 @@ class ViewController: BaseViewController {
                                                                         token: qrcodeParser.token,
                                                                         transID: transID,
                                                                         amount: amount,
-                                                                        nonce: qrcodeParser.nonce)
+                                                                        nonce: qrcodeParser.nonce,
+                                                                        type:type)
         }
         
  

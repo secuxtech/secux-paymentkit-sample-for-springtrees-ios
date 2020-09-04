@@ -170,7 +170,8 @@ for the APIs below:
                     token:String, 
                     transID:String, 
                     amount:String, 
-                    nonce:String) ->(SecuXRequestResult, String)
+                    nonce:String,
+                    type:String) ->(SecuXRequestResult, String)
 ```
 #### <u>Parameter</u>
 ```
@@ -181,6 +182,7 @@ for the APIs below:
     transID:    Transaction ID assigned by merchant. 
     amount:     Amount info. from the QRCode.
     nonce:      Nonce info. from the QRCode. 
+    type:       Activity type: promotion / payment / refill.
 ```
 #### <u>Return value</u>
 ```
@@ -200,7 +202,8 @@ for the APIs below:
                                                                     token: qrcodeParser.token,
                                                                     transID: transID,
                                                                     amount: qrcodeParser.amount,
-                                                                    nonce: qrcodeParser.nonce)
+                                                                    nonce: qrcodeParser.nonce,
+                                                                    type: "promotion")
     if doActivityRet == SecuXRequestResult.SecuXRequestUnauthorized{
         
         //If login session timeout, relogin the merchant account
@@ -216,7 +219,8 @@ for the APIs below:
                                                                     token: qrcodeParser.token,
                                                                     transID: transID,
                                                                     amount: qrcodeParser.amount,
-                                                                    nonce: qrcodeParser.nonce)
+                                                                    nonce: qrcodeParser.nonce,
+                                                                    type: "promotion")
     }
     
     if doActivityRet == SecuXRequestResult.SecuXRequestOK{
