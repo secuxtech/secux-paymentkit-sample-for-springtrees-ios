@@ -14,6 +14,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
+iOS 12+ , Swift 5
+
 ## Installation
 
 secux-paymentkit-v2 is available through [CocoaPods](https://cocoapods.org). To install
