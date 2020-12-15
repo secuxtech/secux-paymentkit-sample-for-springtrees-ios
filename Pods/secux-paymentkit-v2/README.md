@@ -32,7 +32,23 @@ pod 'secux-paymentkit-v2'
 
 ## Usage
 
-### Server URL
+### 1. Initializations
+
+All the three init functions should be done when app starts up.
+```swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions... {
+    
+    //Initialization functions here
+
+}
+```
+
+Use SecuXAccountManager object to do the operations below.
+```swift
+    let accManager = SecuXAccountManager()
+```
+
+#### 1.1 <b>Set server URL</b>
         Set server URL before using the APIs below
 
 #### <u>Declaration</u>
@@ -43,14 +59,39 @@ pod 'secux-paymentkit-v2'
 #### <u>Parameters</u>
         Server URL. e.g. https://pmsweb-test.secux.io
 
-### SecuXAccount related operations
+#### <u>Sample</u>
+```swift
+    let accMgr = SecuXAccountManager()
+    let serverUrl = "https://pmsweb-test.secux.io"
+    accMgr.setBaseServer(url: serverUrl)
+```
+#### 1.2 <b>Set administractor account and password</b>
+
+    Set the administractor account, which is assigned to customers by SecuX
+
+#### <u>Declaration</u>
+```swift
+    func setAdminAccount(name:String, password:String)
+```
+
+#### <u>Parameters</u>
+        name:       Administractor account name.
+        password:   Administractor account password.
+
+#### <u>Sample</u>
+```swift
+    let accMgr = SecuXAccountManager()
+    accMgr.setAdminAccount(name:"testAccount", password:"12345678")
+```
+
+### 2. SecuXAccount related operations
 
 Use SecuXAccountManager object to do the operations below
 ```swift
     let accManager = SecuXAccountManager()
 ```
 
-1. <b>Get supported coin/token</b>
+2.1 <b>Get supported coin/token</b>
 
 #### <u>Declaration</u>
 ```swift
@@ -85,7 +126,10 @@ Use SecuXAccountManager object to do the operations below
     }
 ```
 
-2. <b>Registration</b>
+2.2 <b>Registration</b>
+
+    Register a new user account with specified coin/token account. Please note the registration operation may take around 15 seconds to set up.
+
 #### <u>Declaration</u>
 ```swift
     func registerUserAccount(userAccount: SecuXUserAccount, 
@@ -104,6 +148,8 @@ Use SecuXAccountManager object to do the operations below
 ```
     SecuXRequestResult shows the operation result. If the result is SecuXRequestOK,
     registration is successful, otherwise data might contain an error message.
+
+    Note: if return result is SecuXRequestNoToken, the administractor account is not correct.
 ```
 
 #### <u>Sample</u>
@@ -125,7 +171,7 @@ Use SecuXAccountManager object to do the operations below
     }
 ```
 
-3. <b>Login</b>
+2.3 <b>Login</b>
 
 Note: **Login session is valid for 30 minutes**. To continue use after 30 minutes, relogin is required.
 
@@ -164,8 +210,9 @@ Note: **Login session is valid for 30 minutes**. To continue use after 30 minute
     }
 ```
 
-4. <b>Get coin/token account list</b>  
-Must successfully login the server before calling the function
+2.4 <b>Get coin/token account list</b>  
+
+    Must successfully login the server before calling the function. Return all the coin/token accounts belongs to the login user.
 
 #### <u>Declaration</u>
 ```swift
@@ -206,7 +253,9 @@ Must successfully login the server before calling the function
     }
 ```
 
-5. <b>Get coin/token account balance</b> 
+2.5 <b>Get coin/token account balance</b> 
+
+    Must successfully login the server before calling the function. Return the coin/token account balance
 
 #### <u>Declaration</u>
 ```swift
@@ -252,7 +301,52 @@ Must successfully login the server before calling the function
     }
 ```
 
-### SecuXPayment related operations
+2.6 <b>Change user login password</b>  
+    
+        Must successfully login the server before calling the function. 
+
+#### <u>Declaration</u>
+```swift
+    func changePassword(oldPwd: String, newPwd: String) -> (SecuXRequestResult, Data?)
+```
+#### <u>Parameter</u>
+```
+    oldPwd: User current login password.
+    newPwd: User new login password.
+```
+
+#### <u>Return value</u>
+```
+    SecuXRequestResult shows the operation result. If the result is SecuXRequestOK, 
+    password is changed successfully, otherwise data might contain  
+    an error message.
+
+    Note: if return result is SecuXRequestNoToken / SecuXRequestUnauthorized, the login 
+    session is timeout, please relogin the system.
+```
+
+#### <u>Sample</u>
+```swift
+    DispatchQueue.global(qos: .default).async {
+        let accMgr = SecuXAccountManager()
+        let (ret, data) = accMgr.changePassword(oldPwd: oldpwd, newPwd: pwd)
+        
+        if ret == SecuXRequestResult.SecuXRequestOK{
+            
+            //Change password done
+            
+        }else{
+            var error = ""
+            if let errData = data{
+                error = String(data: errData, encoding: String.Encoding.utf8) ?? ""
+            }
+            self.showMessageInMainThread(title: "Change password failed", message:error)
+        }
+        
+    }
+```
+
+### 3. SecuXPayment related operations
 
 Use SecuXPaymentManager object to do the operations below
 
@@ -260,7 +354,7 @@ Use SecuXPaymentManager object to do the operations below
     let paymentManager = SecuXPaymentManager()
 ```
 
-1. <b>Parsing payment QRCode / NFC message</b>
+3.1 <b>Parsing payment QRCode / NFC message</b>
 #### <u>Declaration</u>
 ```swift
     func getPaymentInfo(paymentInfo: String)->(SecuXRequestResult, Data?)
@@ -322,87 +416,50 @@ Use SecuXPaymentManager object to do the operations below
     }
 ```
 
-2. <b>Get store information</b>
+3.2 <b>Get store information</b>
 #### <u>Declaration</u>
 ```swift
-    func getStoreInfo(devID:String) -> (SecuXRequestResult, String, UIImage?, 
-                                        [(coin:String, token:String)]?)
+    func getStoreInfo(devID:String) -> (SecuXRequestResult, String, SecuXStoreInfo?)
 ```
 #### <u>Parameter</u>
 ```
-    devID: Hashed device ID from getPaymentInfo function
+    devID: Hashed device ID from the "getPaymentInfo" function
 ```
 #### <u>Return value</u>
 ```
     SecuXRequestResult shows the operation result. If the result is SecuXRequestOK, 
-    getting store information is successful, otherwise data might contain an error message.
+    getting store information is successful, retuned store info. object contrains all the store related information, e.g. name, logo..., otherwise data might contain an error message.
 
     Note: if return result is SecuXRequestNoToken / SecuXRequestUnauthorized, the login 
     session is timeout, please relogin the system.
 
-    For eample:
-    let (reqRet, storeInfo, img, supportedCoinTokenArray) 
-                        = paymentManager.getStoreInfo(devID: devIDHash)
-
-    reqRet:     SecuXRequestResult
-    storeInfo:  Store information in JSON format
-    img:        Store logo in UIImage
-    supportedCoinTokenArray: Coin/token(s) accepted by the store
-
-    Sample storeInfo json format:
-    {
-        "storeCode": "568a88ed64b5426eb747f7db00763494",
-        "name": "SecuX Cafe",
-        "deviceId": "4ab10000726b",
-        "icon": ".....",
-        "scanTimeout": 10,
-        "checkRSSI": -80,
-        "connectionTimeout": 30,
-        "supportedSymbol": [
-            [
-            "DCT",
-            "SPC"
-            ]
-        ]
-    }
-
 ```
 #### <u>Sample</u>
 ```swift
-    let (reqRet, storeInfo, img, supportedCoinTokenArray) = paymentManager.getStoreInfo(devID: devIDHash)
-    guard reqRet == SecuXRequestResult.SecuXRequestOK, storeInfo.count > 0, 
-        let imgStore = img,
-        let storeData = storeInfo.data(using: String.Encoding.utf8),
-        let coinTokenArray = supportedCoinTokenArray, coinTokenArray.count > 0,
-        let storeInfoJson = try? JSONSerialization.jsonObject(with: storeData, options: []) as? [String:Any],
-        let storeName = storeInfoJson["name"] as? String,
-        let deviceID = storeInfoJson["deviceId"] as? String else{
-            self.showMessageInMainThread(title: "Get store information from server failed!", message: "")
+    let (reqRet, error, info) = paymentManager.getStoreInfo(devID: devIDHash)
+            
+    guard reqRet == SecuXRequestResult.SecuXRequestOK, 
+        let storeInfo = info, 
+        let imgStore = storeInfo.logo,
+        storeInfo.coinTokenArray.count > 0, 
+        storeInfo.name.count > 0 else {
+           
+            self.showMessageInMainThread(title: "Get store information from server failed!", message: error)
             return
     }
+            
 ```
 
-3. <b>Do payment</b>
+3.3 <b>Do payment</b>
 #### <u>Declaration</u>
 ```swift
     func doPaymentAsync(storeInfo: String, paymentInfo: String)
 ```
 #### <u>Parameter</u>
 ```
-    storeInfo:   Store information JSON string from getStoreInfo function
+    storeInfo:   Store information JSON string from the info value of the SecuXStoreInfo object
     paymentInfo: Payment information JSON string. 
-
-    Sample paymentInfo json format:
-
-    {
-        "amount" : "12",
-        "deviceID" : "ffff619c6d40",   
-        "token" : "SPC",
-        "coinType" : "DCT"
-    }
-
-    Note: deviceID is from storeInfo json, e.g.
-    let deviceID = storeInfoJson["deviceId"] as? String
+    
 ```
 #### <u>Delegate</u>
 ```swift
@@ -435,6 +492,17 @@ class ViewController: UIViewController {
 
         ...
 
+        let (reqRet, error, info) = paymentManager.getStoreInfo(devID: devIDHash)
+        guard reqRet == SecuXRequestResult.SecuXRequestOK, 
+        let storeInfo = info, 
+        let imgStore = storeInfo.logo,
+        storeInfo.coinTokenArray.count > 0, 
+        storeInfo.name.count > 0 else {
+             
+                self.showMessageInMainThread(title: "Get store information from server failed!", message: error)
+                return
+        }
+
         var payinfoDict = [String : String]()
         payinfoDict["amount"] = "12"
         payinfoDict["coinType"] = "DCT"
@@ -447,7 +515,7 @@ class ViewController: UIViewController {
                 return
         }
 
-        paymentManager.doPaymentAsync(storeInfo: self.storeInfo, 
+        paymentManager.doPaymentAsync(storeInfo: storeInfo.info, 
                                     paymentInfo: paymentInfo)
     }
 }
@@ -476,7 +544,7 @@ extension ViewController: SecuXPaymentManagerDelegate{
 ```
 
 
-4. <b>Get all payment history</b>
+3.4 <b>Get all payment history</b>
 #### <u>Declaration</u>
 ```swift
     func getPaymentHistory(token:String, pageIdx:Int, pageItemCount: Int)
@@ -528,7 +596,7 @@ extension ViewController: SecuXPaymentManagerDelegate{
     }
 ```
 
-5. <b>Get payment history from transaction code</b>
+3.5 <b>Get payment history from transaction code</b>
 #### <u>Declaration</u>
 ```swift
     func getPaymentHistory(token:String, transactionCode:String)

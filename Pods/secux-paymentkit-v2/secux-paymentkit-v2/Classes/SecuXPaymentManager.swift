@@ -8,8 +8,6 @@
 
 import Foundation
 import CoreNFC
-//import SPManager
-
 
 
 class PaymentInfo {
@@ -89,6 +87,9 @@ public protocol SecuXPaymentManagerDelegate{
 }
 
 open class SecuXPaymentManager: SecuXPaymentManagerBase {
+    
+    #if arch(i386) || arch(x86_64)
+    #else
     
     public override init() {
         super.init()
@@ -170,6 +171,13 @@ open class SecuXPaymentManager: SecuXPaymentManagerBase {
         
     }
     
+    open func getPaymentUrl(payChannel:String, devID:String, amount:String, productName:String ) -> (SecuXRequestResult, Data?){
+        let (ret, data) = self.secXSvrReqHandler.getPaymentUrl(payChannel: payChannel, devID: devID, amount: amount, productName: productName)
+        return (ret, data)
+    }
+    
+ 
+    
     open func getPaymentHistory(token:String, pageIdx:Int, pageItemCount: Int)->(SecuXRequestResult, [SecuXPaymentHistory]){
         var historyArray = [SecuXPaymentHistory]()
         
@@ -219,6 +227,18 @@ open class SecuXPaymentManager: SecuXPaymentManagerBase {
         return (ret, nil)
     }
     
+    open func doPaymentForNoBLEP22Async(paymentInfo:String){
+        DispatchQueue.global(qos: .default).async {
+            
+            guard let payInfo = PaymentInfo.init(infoStr: paymentInfo) else{
+                self.handlePaymentDone(ret: false, errorMsg: "Invalid payment info.")
+                return
+            }
+            
+            self.doPayment(paymentInfo: payInfo)
+        }
+    }
+    
     open func doPaymentAsync(storeInfo: String, paymentInfo: String){
         
         DispatchQueue.global(qos: .default).async {
@@ -257,11 +277,51 @@ open class SecuXPaymentManager: SecuXPaymentManagerBase {
         }
     }
     
+    open func doPaymentAsync(nonce:String, payChannel:String, orderID:String, devID:String){
+        
+        DispatchQueue.global(qos: .default).async {
+            logw("doThirdPartyPayment ")
+            
+            self.handlePaymentStatus(status: "Device connecting...")
+            
+            
+            //let (ret, ivkey) = paymentPeripheralManager.doGetIVKey(devID: paymentInfo.deviceID)
+            
+            guard let nonceData = nonce.hexData else{
+                self.handlePaymentDone(ret: false, errorMsg: "Invalid payment nonce!")
+                return
+            }
+            
+            let (ret, ivkey) = self.paymentPeripheralManager.doGetIVKey(devID: devID, nonce: [UInt8](nonceData))
+            
+            if ret == .OprationSuccess{
+                self.handlePaymentStatus(status: "Check payment status...")
+                for _ in 0 ... 2{
+                    
+                    let (ret, data) = self.secXSvrReqHandler.checkThirdPartyPaymentStatus(payChannel: payChannel, orderID: orderID, devID: devID, ivKey:ivkey)
+                    
+                    if ret == SecuXRequestResult.SecuXRequestOK, let data = data{
+                        self.sendThirdPartyPayInfoToDevice(payInfo: data)
+                        break
+                    }else{
+                        sleep(3)
+                    }
+                }
+                
+            }else{
+                self.handlePaymentDone(ret: false, errorMsg: ivkey)
+            }
+            
+        }
+    }
+    
     open func doRefund(nonce:String, devID:String, devIDHash:String)->(SecuXRequestResult, String){
+        
         guard let nonceData = nonce.hexData, nonceData.count > 0 else{
             return (SecuXRequestResult.SecuXRequestFailed, "Invalid nonce");
         }
         
+
         let (ret, ivkey, refundInfo) = paymentPeripheralManager.getRefundInfo(devID: devID, nonce:[UInt8](nonceData))
         if ret == .OprationSuccess, let refundInfo = refundInfo{
             let (svrRet, replyData) = self.secXSvrReqHandler.refund(devIDHash: devIDHash, ivKey: ivkey, dataHash: refundInfo)
@@ -276,6 +336,7 @@ open class SecuXPaymentManager: SecuXPaymentManagerBase {
         }
         
         return (SecuXRequestResult.SecuXRequestFailed, "Get refund infor. from device failed! Error: \(ivkey)");
+   
     }
     
     open func doRefill(nonce:String, devID:String, devIDHash:String)->(SecuXRequestResult, String){
@@ -334,7 +395,7 @@ open class SecuXPaymentManager: SecuXPaymentManagerBase {
         return (SecuXRequestResult.SecuXRequestFailed, "Get refill infor. from device failed! Error: \(ivkey)");
     }
     
-    open func doActivity(userID:String, devID:String, coin:String, token:String, transID:String, amount:String, nonce:String) ->(SecuXRequestResult, String){
+    open func doActivity(userID:String, devID:String, coin:String, token:String, transID:String, amount:String, nonce:String, type:String) ->(SecuXRequestResult, String){
         guard let nonceData = nonce.hexData, nonceData.count > 0 else{
             return (SecuXRequestResult.SecuXRequestFailed, "Invalid nonce");
         }
@@ -344,7 +405,7 @@ open class SecuXPaymentManager: SecuXPaymentManagerBase {
         if ret == .OprationSuccess{
                                                                                                             
             let (svrRet, reply) = self.secXSvrReqHandler.encryptPaymentData(sender: userID, devID: devID, ivKey: ivkey,
-                                                                            coin: coin, token: token, transID: transID, amount: amount)
+                                                                            coin: coin, token: token, transID: transID, amount: amount, memo: type)
             if svrRet == SecuXRequestResult.SecuXRequestOK{
                 if let replyData = reply,
                     let replyJson = try? JSONSerialization.jsonObject(with: replyData, options: []) as? [String:Any]{
@@ -383,4 +444,6 @@ open class SecuXPaymentManager: SecuXPaymentManagerBase {
         return (SecuXRequestResult.SecuXRequestFailed, ivkey);
                                                                                                                 
     }
+    
+    #endif
 }

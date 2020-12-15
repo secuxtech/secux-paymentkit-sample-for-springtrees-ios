@@ -12,31 +12,87 @@ import Foundation
 class SecuXServerRequestHandler: RestRequestHandler {
     
 
-    static var baseURL = "https://pmsweb-test.secux.io"  //"https://pmsweb-sandbox.secuxtech.com" //"https://pmsweb-test.secux.io"
-    static let adminLoginUrl = baseURL + "/api/Admin/Login"
-    static let registerUrl = baseURL + "/api/Consumer/Register"
-    static let userLoginUrl = baseURL + "/api/Consumer/Login"
-    static let changePwdUrl = baseURL + "/api/Consumer/ChangePassword"
-    static let transferUrl = baseURL + "/api/Consumer/Transfer"
-    static let balanceUrl = baseURL + "/api/Consumer/GetAccountBalance"
-    static let balanceListUrl = baseURL + "/api/Consumer/GetAccountBalanceList"
-    static let paymentUrl = baseURL + "/api/Consumer/Payment"
-    static let paymentHistoryUrl = baseURL + "/api/Consumer/GetPaymentHistory"
-    static let getStoreUrl = baseURL + "/api/Terminal/GetStore"
-    static let transferHistoryUrl = baseURL + "/api/Consumer/GetTxHistory"
-    static let getDeviceInfoUrl = baseURL + "/api/Terminal/GetDeviceInfo"
-    static let getSupportedSymbol = baseURL + "/api/Terminal/GetSupportedSymbol"
-    static let getChainAccountList = baseURL + "/api/Consumer/GetChainAccountList"
-    static let accountOperationUrl = baseURL + "/api/Consumer/BindingChainAccount"
-    static let refundUrl = baseURL + "/api/Consumer/Refund";
-    static let refillUrl = baseURL + "/api/Consumer/Refill";
-    static let encryptPaymentDataUrl = baseURL + "/api/B2B/ProduceCipher";
+    static var baseURL = "https://pmsweb-sandbox.secuxtech.com" //"https://pmsweb-test.secux.io"  //"https://pmsweb-sandbox.secuxtech.com" //"https://pmsweb-test.secux.io"
+    static var adminLoginUrl = baseURL + "/api/Admin/Login"
+    static var registerUrl = baseURL + "/api/Consumer/Register"
+    static var userLoginUrl = baseURL + "/api/Consumer/Login"
+    static var changePwdUrl = baseURL + "/api/Consumer/ChangePassword"
+    static var transferUrl = baseURL + "/api/Consumer/Transfer"
+    static var balanceUrl = baseURL + "/api/Consumer/GetAccountBalance"
+    static var balanceListUrl = baseURL + "/api/Consumer/GetAccountBalanceList"
+    static var paymentUrl = baseURL + "/api/Consumer/Payment"
+    static var paymentHistoryUrl = baseURL + "/api/Consumer/GetPaymentHistory"
+    static var getStoreUrl = baseURL + "/api/Terminal/GetStore"
+    static var transferHistoryUrl = baseURL + "/api/Consumer/GetTxHistory"
+    static var getDeviceInfoUrl = baseURL + "/api/Terminal/GetDeviceInfo"
+    static var getSupportedSymbol = baseURL + "/api/Terminal/GetSupportedSymbol"
+    static var getChainAccountList = baseURL + "/api/Consumer/GetChainAccountList"
+    static var accountOperationUrl = baseURL + "/api/Consumer/BindingChainAccount"
+    static var refundUrl = baseURL + "/api/Consumer/Refund";
+    static var refillUrl = baseURL + "/api/Consumer/Refill";
+    static var encryptPaymentDataUrl = baseURL + "/api/B2B/ProduceCipher";
+    
+    static var getPaymentUrlUrl = baseURL + "/api/Consumer/GetFiatPaymentUrl"
+    static var checkPaymentStatus = baseURL + "/api/Consumer/CheckFiatPaymentStatus"
     
     private static var theToken = ""
     
+    static func setServerURL(url:String){
+        baseURL = url
+        adminLoginUrl = baseURL + "/api/Admin/Login"
+        registerUrl = baseURL + "/api/Consumer/Register"
+        userLoginUrl = baseURL + "/api/Consumer/Login"
+        changePwdUrl = baseURL + "/api/Consumer/ChangePassword"
+        transferUrl = baseURL + "/api/Consumer/Transfer"
+        balanceUrl = baseURL + "/api/Consumer/GetAccountBalance"
+        balanceListUrl = baseURL + "/api/Consumer/GetAccountBalanceList"
+        paymentUrl = baseURL + "/api/Consumer/Payment"
+        paymentHistoryUrl = baseURL + "/api/Consumer/GetPaymentHistory"
+        getStoreUrl = baseURL + "/api/Terminal/GetStore"
+        transferHistoryUrl = baseURL + "/api/Consumer/GetTxHistory"
+        getDeviceInfoUrl = baseURL + "/api/Terminal/GetDeviceInfo"
+        getSupportedSymbol = baseURL + "/api/Terminal/GetSupportedSymbol"
+        getChainAccountList = baseURL + "/api/Consumer/GetChainAccountList"
+        accountOperationUrl = baseURL + "/api/Consumer/BindingChainAccount"
+        refundUrl = baseURL + "/api/Consumer/Refund"
+        refillUrl = baseURL + "/api/Consumer/Refill"
+        encryptPaymentDataUrl = baseURL + "/api/B2B/ProduceCipher"
+        
+        getPaymentUrlUrl = baseURL + "/api/Consumer/GetFiatPaymentUrl"
+        checkPaymentStatus = baseURL + "/api/Consumer/CheckFiatPaymentStatus"
+    }
+    
+    private static var adminAccountName = ""
+    private static var adminAccountPassword = ""
+    
+    func setAdminAccount(name:String, password:String){
+        SecuXServerRequestHandler.adminAccountName = name
+        SecuXServerRequestHandler.adminAccountPassword = password
+    }
+    
+    
     func getAdminToken() -> String?{
         logw("getAdminToken")
-        let param = ["account": "secux_register", "password":"!secux_register@123"]
+        
+        var adminPwd = ""
+        var adminName = ""
+        if SecuXServerRequestHandler.adminAccountName.count > 0, SecuXServerRequestHandler.adminAccountPassword.count > 0{
+            adminName = SecuXServerRequestHandler.adminAccountName
+            adminPwd = SecuXServerRequestHandler.adminAccountPassword
+        }else{
+            
+            /*
+            adminName = "secux_register"
+            adminPwd = "!secux_register@123"
+            if SecuXServerRequestHandler.baseURL.caseInsensitiveCompare("https://pmsweb.secuxtech.com") == .orderedSame{
+                adminPwd = "168!Secux@168"
+            }
+            */
+            
+            return nil
+        }
+        
+        let param = ["account": adminName, "password":adminPwd]
         let (ret, data) = self.postRequestSync(urlstr: SecuXServerRequestHandler.adminLoginUrl, param: param)
         if ret == SecuXRequestResult.SecuXRequestOK, let tokenData = data{
             
@@ -115,7 +171,11 @@ class SecuXServerRequestHandler: RestRequestHandler {
     func getSupportedCoinTokens()  -> (SecuXRequestResult, Data?){
         logw("getSupportedToken")
         
-        return self.postRequestSync(urlstr: SecuXServerRequestHandler.getSupportedSymbol, param: nil)
+        guard let bearerToken = getAdminToken() else{
+            return (SecuXRequestResult.SecuXRequestNoToken, nil);
+        }
+
+        return self.postRequestSync(urlstr: SecuXServerRequestHandler.getSupportedSymbol, param: nil, token: bearerToken)
     }
     
     func getChainAccountList() -> (SecuXRequestResult, Data?){
@@ -202,7 +262,14 @@ class SecuXServerRequestHandler: RestRequestHandler {
             return (SecuXRequestResult.SecuXRequestNoToken, nil)
         }
         
-        let param = ["ivKey":payInfo.ivKey, "memo":"", "symbol":payInfo.token, "amount":payInfo.amount, "coinType":payInfo.coinType, "receiver":payInfo.deviceID]
+        let secondsFromGMT = TimeZone.current.secondsFromGMT()
+        let param = ["ivKey":payInfo.ivKey,
+                     "memo":"",
+                     "symbol":payInfo.token,
+                     "amount":payInfo.amount,
+                     "coinType":payInfo.coinType,
+                     "receiver":payInfo.deviceID,
+                     "timeZone":"\(secondsFromGMT)"]
         
         return self.postRequestSync(urlstr: SecuXServerRequestHandler.paymentUrl, param: param, token: SecuXServerRequestHandler.theToken)
     }
@@ -227,7 +294,14 @@ class SecuXServerRequestHandler: RestRequestHandler {
             return (SecuXRequestResult.SecuXRequestNoToken, nil)
         }
         
-        let param = ["symbol":token, "page":pageIdx, "count":pageItemCount, "columnName":"", "sorting":""] as [String : Any]
+        let subparam = ["offset":pageIdx, "limit":pageItemCount, "sort": "transactionTime", "order": "descending"] as [String : Any]
+        let param = ["keyword": "",
+                    "startTime": "",
+                    "endTime": "",
+                    "payChannel": "",
+                    "symbol": "",
+                    "transactionStatus": "",
+                    "params":subparam] as [String : Any]
         return self.postRequestSync(urlstr: SecuXServerRequestHandler.paymentHistoryUrl, param: param, token: SecuXServerRequestHandler.theToken)
     }
     
@@ -239,7 +313,17 @@ class SecuXServerRequestHandler: RestRequestHandler {
             return (SecuXRequestResult.SecuXRequestNoToken, nil)
         }
         
-        let param = ["symbol":token, "page":1, "count":10, "columnName":"", "sorting":"", "transactionCode":transactionCode] as [String : Any]
+        //let param = ["symbol":token, "page":1, "count":10, "columnName":"", "sorting":"", "transactionCode":transactionCode] as [String : Any]
+        
+        let subparam = ["offset":0, "limit":10, "sort": "transactionTime", "order": "descending"] as [String : Any]
+        let param = ["keyword": transactionCode,
+                    "startTime": "",
+                    "endTime": "",
+                    "payChannel": "",
+                    "symbol": token,
+                    "transactionStatus": "",
+                    "params":subparam] as [String : Any]
+        
         return self.postRequestSync(urlstr: SecuXServerRequestHandler.paymentHistoryUrl, param: param, token: SecuXServerRequestHandler.theToken)
     }
     
@@ -273,7 +357,11 @@ class SecuXServerRequestHandler: RestRequestHandler {
             return (SecuXRequestResult.SecuXRequestNoToken, nil)
         }
         
-        let param = ["deviceIDhash": devIDHash, "ivKey": ivKey, "hashTx":dataHash] as [String : Any]
+        let secondsFromGMT = TimeZone.current.secondsFromGMT()
+        let param = ["deviceIDhash": devIDHash,
+                     "ivKey": ivKey,
+                     "hashTx":dataHash,
+                     "timeZone":"\(secondsFromGMT)"] as [String : Any]
         return self.postRequestSync(urlstr: SecuXServerRequestHandler.refundUrl, param: param, token: SecuXServerRequestHandler.theToken)
     }
     
@@ -283,11 +371,15 @@ class SecuXServerRequestHandler: RestRequestHandler {
             return (SecuXRequestResult.SecuXRequestNoToken, nil)
         }
         
-        let param = ["deviceIDhash": devIDHash, "ivKey": ivKey, "hashTx":dataHash] as [String : Any]
+        let secondsFromGMT = TimeZone.current.secondsFromGMT()
+        let param = ["deviceIDhash": devIDHash,
+                     "ivKey": ivKey,
+                     "hashTx":dataHash,
+                     "timeZone":"\(secondsFromGMT)"] as [String : Any]
         return self.postRequestSync(urlstr: SecuXServerRequestHandler.refillUrl, param: param, token: SecuXServerRequestHandler.theToken)
     }
     
-    func encryptPaymentData(sender:String, devID:String, ivKey:String, coin:String, token:String, transID:String, amount:String) -> (SecuXRequestResult, Data?){
+    func encryptPaymentData(sender:String, devID:String, ivKey:String, coin:String, token:String, transID:String, amount:String, memo:String) -> (SecuXRequestResult, Data?){
         if SecuXServerRequestHandler.theToken.count == 0{
             logw("no token")
             return (SecuXRequestResult.SecuXRequestNoToken, "no token".data(using: .utf8))
@@ -299,8 +391,44 @@ class SecuXServerRequestHandler: RestRequestHandler {
                      "sender":sender,
                      "deviceId":devID,
                      "transactionId":transID,
-                     "amount":amount] as [String : String]
+                     "amount":amount,
+                     "memo":memo] as [String : String]
         
         return self.postRequestSync(urlstr: SecuXServerRequestHandler.encryptPaymentDataUrl, param: param, token: SecuXServerRequestHandler.theToken)
+    }
+    
+    func getPaymentUrl(payChannel:String, devID:String, amount:String, productName:String ) -> (SecuXRequestResult, Data?){
+        print("getPaymentUrl")
+        if SecuXServerRequestHandler.theToken.count == 0{
+            logw("no token")
+            return (SecuXRequestResult.SecuXRequestNoToken, "no token".data(using: .utf8))
+        }
+        
+        let secondsFromGMT = TimeZone.current.secondsFromGMT()
+        let param = ["payChannel": payChannel,
+                     "amount": amount,
+                     "productName":productName,
+                     "deviceId":devID,
+                     "timeZone":"\(secondsFromGMT)"] as [String : String]
+        
+        return self.postRequestSync(urlstr: SecuXServerRequestHandler.getPaymentUrlUrl, param: param, token: SecuXServerRequestHandler.theToken)
+        
+    }
+    
+    func checkThirdPartyPaymentStatus(payChannel:String, orderID:String, devID:String, ivKey:String) -> (SecuXRequestResult, Data?){
+        print("checkPaymentStatus")
+        if SecuXServerRequestHandler.theToken.count == 0{
+            logw("no token")
+            return (SecuXRequestResult.SecuXRequestNoToken, "no token".data(using: .utf8))
+        }
+        
+        let secondsFromGMT = TimeZone.current.secondsFromGMT()
+        let param = ["ivKey":ivKey,
+                     "payChannel": payChannel,
+                     "orderId": orderID,
+                     "deviceId":devID,
+                     "timeZone":"\(secondsFromGMT)"] as [String : String]
+        
+        return self.postRequestSync(urlstr: SecuXServerRequestHandler.checkPaymentStatus, param: param, token: SecuXServerRequestHandler.theToken)
     }
 }

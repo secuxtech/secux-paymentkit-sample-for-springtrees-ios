@@ -15,6 +15,7 @@
 			dependencies = (
 			);
 			name = "secux-paymentdevicekit";
+			productName = "secux-paymentdevicekit";
 		};
 /* End PBXAggregateTarget section */
 
@@ -92,7 +93,7 @@
 		2248F946E50C19F6F8C482336287434C /* LBXScanView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LBXScanView.swift; path = Source/LBXScanView.swift; sourceTree = "<group>"; };
 		23CFD197E7B5438510DCDF712B63E93A /* secux-paymentdevicekit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "secux-paymentdevicekit.debug.xcconfig"; sourceTree = "<group>"; };
 		279D148F0F84A2F250D332C7B72C2F02 /* LBXScanWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LBXScanWrapper.swift; path = Source/LBXScanWrapper.swift; sourceTree = "<group>"; };
-		2AB985995F7D6ED38151860D8B809577 /* swiftScan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = swiftScan.framework; path = swiftScan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AB985995F7D6ED38151860D8B809577 /* swiftScan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = swiftScan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AF75827EF9B3A201E24C45B9F995D08 /* SecuXCoinTokenBalance.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecuXCoinTokenBalance.swift; path = "secux-paymentkit-v2/Classes/SecuXCoinTokenBalance.swift"; sourceTree = "<group>"; };
 		3026316FCE17B8E70389D2BE578D44A8 /* SecuXServerFWRequestHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecuXServerFWRequestHandler.swift; path = "secux-paymentkit-v2/Classes/SecuXServerFWRequestHandler.swift"; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -118,12 +119,12 @@
 		8ACEF66FEC623EB20882E9B143273C8F /* secux-paymentkit-v2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "secux-paymentkit-v2-umbrella.h"; sourceTree = "<group>"; };
 		9CCCB1E8770C618DDD256543E27DBD80 /* SecuXTransferResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecuXTransferResult.swift; path = "secux-paymentkit-v2/Classes/SecuXTransferResult.swift"; sourceTree = "<group>"; };
 		9D8B85EDDA41C8A59A530708844B3E0E /* secux-paymentkit-v2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "secux-paymentkit-v2.release.xcconfig"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A07A1B6D3B4BD58EE65A902F0DAC071A /* LBXPermissions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LBXPermissions.swift; path = Source/LBXPermissions.swift; sourceTree = "<group>"; };
 		A0D853583CD344B42503B2E53984760D /* swiftScan.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = swiftScan.modulemap; sourceTree = "<group>"; };
 		A1C9E30BFD7C3E16F8EA2AD7E6C38645 /* SecuXPaymentManagerBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecuXPaymentManagerBase.swift; path = "secux-paymentkit-v2/Classes/SecuXPaymentManagerBase.swift"; sourceTree = "<group>"; };
 		A2E21E08E1265779119165880A8A435C /* SecuXUserAccount.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecuXUserAccount.swift; path = "secux-paymentkit-v2/Classes/SecuXUserAccount.swift"; sourceTree = "<group>"; };
-		AD6D27147C9461F070C1803EB482321E /* secux_paymentkit_v2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = secux_paymentkit_v2.framework; path = "secux-paymentkit-v2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD6D27147C9461F070C1803EB482321E /* secux_paymentkit_v2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = secux_paymentkit_v2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4E510F0876D30704192188ECC1710F3 /* Pods-SecuXPaymentKitSample-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SecuXPaymentKitSample-acknowledgements.markdown"; sourceTree = "<group>"; };
 		BE5E18DD9B7A6B75264B401AE3165806 /* secux_paymentdevicekit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = secux_paymentdevicekit.framework; sourceTree = "<group>"; };
 		C095A82A5CAAA66D41B0F7B41B30479B /* Pods-SecuXPaymentKitSample-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SecuXPaymentKitSample-frameworks.sh"; sourceTree = "<group>"; };
@@ -134,7 +135,7 @@
 		D96FA8FFE65B4CEC94E445C3FEFE4011 /* LogHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LogHandler.swift; path = "secux-paymentkit-v2/Classes/LogHandler.swift"; sourceTree = "<group>"; };
 		DBD58455FDFBB0372D76532F79F224E4 /* LBXScanViewStyle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LBXScanViewStyle.swift; path = Source/LBXScanViewStyle.swift; sourceTree = "<group>"; };
 		DF1704002A0FF9765C88EAAA2BB088CB /* Pods-SecuXPaymentKitSample.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SecuXPaymentKitSample.modulemap"; sourceTree = "<group>"; };
-		E03221A27A69489CADB5FC6A0CE4D38B /* Pods_SecuXPaymentKitSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SecuXPaymentKitSample.framework; path = "Pods-SecuXPaymentKitSample.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E03221A27A69489CADB5FC6A0CE4D38B /* Pods_SecuXPaymentKitSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SecuXPaymentKitSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,7 +178,6 @@
 				279D148F0F84A2F250D332C7B72C2F02 /* LBXScanWrapper.swift */,
 				96798A0C5C0F3445F91DB28E05B986D6 /* Support Files */,
 			);
-			name = swiftScan;
 			path = swiftScan;
 			sourceTree = "<group>";
 		};
@@ -215,7 +215,6 @@
 				387055022D4B1E71A5B2CF401AC06A70 /* Frameworks */,
 				40B00297EB29CF3E1C398007D12E7FBA /* Support Files */,
 			);
-			name = "secux-paymentdevicekit";
 			path = "secux-paymentdevicekit";
 			sourceTree = "<group>";
 		};
@@ -330,7 +329,6 @@
 				A2E21E08E1265779119165880A8A435C /* SecuXUserAccount.swift */,
 				749F1F1B3455225090AA13835316E8D3 /* Support Files */,
 			);
-			name = "secux-paymentkit-v2";
 			path = "secux-paymentkit-v2";
 			sourceTree = "<group>";
 		};
@@ -429,7 +427,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1230;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 10.0";
@@ -552,11 +550,11 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		2C18AD589B5F0EB5E2A8CCA24A3DA8E0 /* Release */ = {
+		11AF3BE47191B107044303BCC49D259F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1439D5E0039B424DE9E66843D9E0D34 /* swiftScan.release.xcconfig */;
+			baseConfigurationReference = 8861298E531BD28E773E1E66B0B917E0 /* secux-paymentkit-v2.debug.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -566,21 +564,90 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/secux-paymentkit-v2/secux-paymentkit-v2-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/secux-paymentkit-v2/secux-paymentkit-v2-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/secux-paymentkit-v2/secux-paymentkit-v2.modulemap";
+				PRODUCT_MODULE_NAME = secux_paymentkit_v2;
+				PRODUCT_NAME = secux_paymentkit_v2;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		21CECEFF4A80AFDDD94AE298FA9A0DBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D8B85EDDA41C8A59A530708844B3E0E /* secux-paymentkit-v2.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/secux-paymentkit-v2/secux-paymentkit-v2-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/secux-paymentkit-v2/secux-paymentkit-v2-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/secux-paymentkit-v2/secux-paymentkit-v2.modulemap";
+				PRODUCT_MODULE_NAME = secux_paymentkit_v2;
+				PRODUCT_NAME = secux_paymentkit_v2;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2C18AD589B5F0EB5E2A8CCA24A3DA8E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1439D5E0039B424DE9E66843D9E0D34 /* swiftScan.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREFIX_HEADER = "Target Support Files/swiftScan/swiftScan-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/swiftScan/swiftScan-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/swiftScan/swiftScan.modulemap";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fembed-bitcode",
-				);
 				PRODUCT_MODULE_NAME = swiftScan;
 				PRODUCT_NAME = swiftScan;
 				SDKROOT = iphoneos;
@@ -594,66 +661,17 @@
 			};
 			name = Release;
 		};
-		4B642834D91014D386DBEA825DEB540E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8861298E531BD28E773E1E66B0B917E0 /* secux-paymentkit-v2.debug.xcconfig */;
-			buildSettings = {
-				BITCODE_GENERATION_MODE = marker;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/secux-paymentkit-v2/secux-paymentkit-v2-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/secux-paymentkit-v2/secux-paymentkit-v2-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/secux-paymentkit-v2/secux-paymentkit-v2.modulemap";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fembed-bitcode-marker",
-				);
-				PRODUCT_MODULE_NAME = secux_paymentkit_v2;
-				PRODUCT_NAME = secux_paymentkit_v2;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		4EA32792656F49A9599DB6BCB3F5F252 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 23CFD197E7B5438510DCDF712B63E93A /* secux-paymentdevicekit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				BITCODE_GENERATION_MODE = marker;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
-				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fembed-bitcode-marker",
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -665,18 +683,12 @@
 			baseConfigurationReference = 6DF7B773A5DE5834D3E6082DC2DDD996 /* secux-paymentdevicekit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
-				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fembed-bitcode",
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -711,6 +723,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -753,7 +766,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5AF786D84EB477D28F3C44938B6A1188 /* swiftScan.debug.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -763,21 +775,16 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/swiftScan/swiftScan-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/swiftScan/swiftScan-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "Target Support Files/swiftScan/swiftScan.modulemap";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fembed-bitcode-marker",
-				);
 				PRODUCT_MODULE_NAME = swiftScan;
 				PRODUCT_NAME = swiftScan;
 				SDKROOT = iphoneos;
@@ -789,50 +796,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		7278C7275CDB768726731893D21F2681 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9D8B85EDDA41C8A59A530708844B3E0E /* secux-paymentkit-v2.release.xcconfig */;
-			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/secux-paymentkit-v2/secux-paymentkit-v2-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/secux-paymentkit-v2/secux-paymentkit-v2-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/secux-paymentkit-v2/secux-paymentkit-v2.modulemap";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fembed-bitcode",
-				);
-				PRODUCT_MODULE_NAME = secux_paymentkit_v2;
-				PRODUCT_NAME = secux_paymentkit_v2;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		90ABB5D8856582C98EB063A8BA8A2BA2 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -861,6 +824,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -900,7 +864,6 @@
 			baseConfigurationReference = 0BCAC671CBEC1B0B5213E13152DDFC32 /* Pods-SecuXPaymentKitSample.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				BITCODE_GENERATION_MODE = marker;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -911,7 +874,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Target Support Files/Pods-SecuXPaymentKitSample/Pods-SecuXPaymentKitSample-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
@@ -922,10 +884,6 @@
 				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-SecuXPaymentKitSample/Pods-SecuXPaymentKitSample.modulemap";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fembed-bitcode-marker",
-				);
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -944,7 +902,6 @@
 			baseConfigurationReference = 42690ACBFBE48B62358D4E318A1F34D3 /* Pods-SecuXPaymentKitSample.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -955,7 +912,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Target Support Files/Pods-SecuXPaymentKitSample/Pods-SecuXPaymentKitSample-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
@@ -966,10 +922,6 @@
 				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-SecuXPaymentKitSample/Pods-SecuXPaymentKitSample.modulemap";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fembed-bitcode",
-				);
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -1026,8 +978,8 @@
 		CE7E99BB59E22E1E7C377E7177A5F491 /* Build configuration list for PBXNativeTarget "secux-paymentkit-v2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4B642834D91014D386DBEA825DEB540E /* Debug */,
-				7278C7275CDB768726731893D21F2681 /* Release */,
+				11AF3BE47191B107044303BCC49D259F /* Debug */,
+				21CECEFF4A80AFDDD94AE298FA9A0DBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

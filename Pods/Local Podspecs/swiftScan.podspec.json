@@ -1,6 +1,6 @@
 {
   "name": "swiftScan",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "summary": "ios swift scan wrapper",
   "homepage": "https://github.com/MxABC/swiftScan",
   "license": "MIT",
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/MxABC/swiftScan.git",
-    "tag": "1.2.0"
+    "tag": "1.2.1"
   },
   "source_files": "Source/*.swift"
 }

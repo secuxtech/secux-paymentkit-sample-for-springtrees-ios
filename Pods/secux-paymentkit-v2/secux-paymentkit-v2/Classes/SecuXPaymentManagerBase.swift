@@ -7,9 +7,20 @@
 //
 
 import Foundation
-//import SPManager
-import secux_paymentdevicekit
+
 import CoreNFC
+
+
+#if arch(i386) || arch(x86_64)
+
+     //simulator
+#else
+     import secux_paymentdevicekit
+
+#endif
+
+
+
 
 
 extension String {
@@ -35,9 +46,12 @@ extension String {
 
 open class SecuXPaymentManagerBase{
     
+    #if arch(i386) || arch(x86_64)
+    #else
     let secXSvrReqHandler = SecuXServerRequestHandler()
     let paymentPeripheralManager = SecuXPaymentPeripheralManager.init(scanTimeout: 5, connTimeout: 30, checkRSSI: -80)
-    
+         
+
     open var delegate: SecuXPaymentManagerDelegate?
 
     
@@ -49,6 +63,7 @@ open class SecuXPaymentManagerBase{
             if let statusCode = json["statusCode"] as? Int{
                 if statusCode != 200{
                     let statusDesc = json["statusDesc"] as? String ?? ""
+                    self.paymentPeripheralManager.requestDisconnect()
                     return (SecuXRequestResult.SecuXRequestFailed, "Invalid status code \(statusCode) from server! \(statusDesc)")
                 }
             }
@@ -71,22 +86,72 @@ open class SecuXPaymentManagerBase{
               
                 
             }else{
-                
+                self.paymentPeripheralManager.requestDisconnect()
                 return (SecuXRequestResult.SecuXRequestFailed, "Invalid data reply from server")
                 
             }
             
         }catch{
             print("doPayment error: " + error.localizedDescription)
-            
+            self.paymentPeripheralManager.requestDisconnect()
             return (SecuXRequestResult.SecuXRequestFailed, "Parsing server reply error")
         }
     }
     
+    public func sendThirdPartyPayInfoToDevice(payInfo: Data){
+        
+        logw("sendThirdPartyPayInfoToDevice")
+        
+           
+        do{
+            let json  = try JSONSerialization.jsonObject(with: payInfo, options: []) as! [String : Any]
+            print("sendInfoToDevice recv \(json)  \n--------")
+            
+            if let statusCode = json["statusCode"] as? Int, let statusDesc = json["statusDesc"] as? String{
+                if statusCode != 200{
+                    self.paymentPeripheralManager.requestDisconnect()
+                    self.handlePaymentDone(ret: false, errorMsg: statusDesc)
+                    return
+                }
+            }
+            
+            if let machineControlParams = json["machineControlParam"] as? [String : Any],
+                let encryptedStr = json["encryptedTransaction"] as? String,
+                let transCode = json["transactionCode"] as? String,
+                let encrypted = Data(base64Encoded: encryptedStr){
+                
+                logw("AccountPaymentViewModel doPaymentVerification")
+               
+                self.handlePaymentStatus(status: "Device verifying ...")
+                
+                let (ret, errorMsg) = self.paymentPeripheralManager.doPaymentVerification(encPaymentData: encrypted, machineControlParams: machineControlParams)
+                if ret == .OprationSuccess{
+                    self.handlePaymentDone(ret: true, errorMsg: transCode)
+                }else{
+                    self.handlePaymentDone(ret: false, errorMsg: errorMsg)
+                }
+              
+            }else{
+                self.paymentPeripheralManager.requestDisconnect()
+                self.handlePaymentDone(ret: false, errorMsg: "Invalid payment data from server")
+                
+            }
+            
+        }catch{
+            self.paymentPeripheralManager.requestDisconnect()
+            print("doPayment error: " + error.localizedDescription)
+            self.handlePaymentDone(ret: false, errorMsg: error.localizedDescription)
+            
+            return
+        }
+        
+    }
+    
     private func sendInfoToDevice(paymentInfo: PaymentInfo){
         
-        logw("AccountPaymentViewModel sendInfoToDevice")
+        logw("sendInfoToDevice")
         
+        self.handlePaymentStatus(status: "\(paymentInfo.token) transferring...")
         let (ret, data) = self.secXSvrReqHandler.doPayment(payInfo: paymentInfo)
         if ret==SecuXRequestResult.SecuXRequestOK, let payInfo = data {
             
@@ -97,6 +162,7 @@ open class SecuXPaymentManagerBase{
                 if let statusCode = json["statusCode"] as? Int, let statusDesc = json["statusDesc"] as? String{
                     if statusCode != 200{
                         self.handlePaymentDone(ret: false, errorMsg: statusDesc)
+                        self.paymentPeripheralManager.requestDisconnect()
                         return
                     }
                 }
@@ -121,12 +187,15 @@ open class SecuXPaymentManagerBase{
                   
                     
                 }else{
-                    
+                    self.paymentPeripheralManager.requestDisconnect()
                     self.handlePaymentDone(ret: false, errorMsg: "Invalid payment data from server")
                     
                 }
                 
             }catch{
+                
+                self.paymentPeripheralManager.requestDisconnect()
+                
                 print("doPayment error: " + error.localizedDescription)
                 self.handlePaymentDone(ret: false, errorMsg: error.localizedDescription)
                 
@@ -136,6 +205,7 @@ open class SecuXPaymentManagerBase{
            
         }else if ret==SecuXRequestResult.SecuXRequestNoToken || ret==SecuXRequestResult.SecuXRequestUnauthorized{
             
+            self.paymentPeripheralManager.requestDisconnect()
             self.handlePaymentDone(ret: false, errorMsg: "no token")
             
         }else{
@@ -147,6 +217,7 @@ open class SecuXPaymentManagerBase{
                 error = msg
             }
             
+            self.paymentPeripheralManager.requestDisconnect()
             self.handlePaymentDone(ret: false, errorMsg:error)
             
         }
@@ -246,6 +317,58 @@ open class SecuXPaymentManagerBase{
         }
         
     }
+    
+    internal func doPayment(paymentInfo: PaymentInfo){
+        logw("doPayment for none-ble P22 \(paymentInfo.amount) \(paymentInfo.coinType) \(paymentInfo.token)")
+        
+        let (ret, data) = self.secXSvrReqHandler.doPayment(payInfo: paymentInfo)
+        if ret==SecuXRequestResult.SecuXRequestOK, let payInfo = data {
+            
+            do{
+                let json  = try JSONSerialization.jsonObject(with: payInfo, options: []) as! [String : Any]
+                print("recv \(json)  \n--------")
+                
+                if let statusCode = json["statusCode"] as? Int, let statusDesc = json["statusDesc"] as? String{
+                    if statusCode != 200{
+                        self.handlePaymentDone(ret: false, errorMsg: statusDesc)
+                        return
+                    }
+                }
+                
+                if let transCode = json["transactionCode"] as? String{
+                
+                    self.handlePaymentDone(ret: true, errorMsg: transCode)
+                   
+                }else{
+                    
+                    self.handlePaymentDone(ret: false, errorMsg: "Invalid payment data from server! No transaction code.")
+                    
+                }
+                
+            }catch{
+                print("doPayment error: " + error.localizedDescription)
+                self.handlePaymentDone(ret: false, errorMsg: error.localizedDescription)
+                
+                return
+            }
+           
+        }else if ret==SecuXRequestResult.SecuXRequestNoToken || ret==SecuXRequestResult.SecuXRequestUnauthorized{
+            
+            self.handlePaymentDone(ret: false, errorMsg: "no token")
+            
+        }else{
+            
+            print("doPayment failed!!")
+            var error = "Send request to server failed."
+            if let data = data{
+                let msg = String(data: data, encoding: .utf8) ?? ""
+                error = msg
+            }
+            
+            self.handlePaymentDone(ret: false, errorMsg:error)
+            
+        }
+    }
  
     
     internal func handlePaymentDone(ret: Bool, errorMsg: String){
@@ -264,5 +387,6 @@ open class SecuXPaymentManagerBase{
         }
     }
     
-
+    #endif
+   
 }

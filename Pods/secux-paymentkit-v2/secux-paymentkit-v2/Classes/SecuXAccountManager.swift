@@ -15,9 +15,17 @@ open class SecuXAccountManager{
         
     }
     
+    public func getBaseServer() -> String{
+        return SecuXServerRequestHandler.baseURL
+    }
+    
     public func setBaseServer(url:String){
         logw("setBaseServer \(url)")
-        SecuXServerRequestHandler.baseURL = url
+        SecuXServerRequestHandler.setServerURL(url: url)
+    }
+    
+    public func setAdminAccount(name:String, password:String){
+        self.secuXSvrReqHandler.setAdminAccount(name: name, password: password)
     }
     
     public func registerUserAccount(userAccount: SecuXUserAccount, coinType: String, token: String) -> (SecuXRequestResult, Data?){
@@ -89,33 +97,7 @@ open class SecuXAccountManager{
                 userAccount.type = type
             }
             
-            /*
-            guard let coinType = responseJson["coinType"] as? String,
-                let token = responseJson["symbol"] as? String,
-                let balance = responseJson["balance"]  as? Double,
-                let formattedBalance = responseJson["formattedBalance"] as? Double,
-                let usdBalance = responseJson["balance_usd"] as? Double else{
-                
-                
-                return (SecuXRequestResult.SecuXRequestFailed, "Invalid response from server".data(using: String.Encoding.utf8))
-            }
-            
-        
-            let balDec = Decimal(balance)
-            let formattedBalDec = Decimal(formattedBalance)
-            let usdBalDec = Decimal(usdBalance)
-            
-            
-            let tokenBalance = SecuXCoinTokenBalance(balance: balDec, formattedBalance: formattedBalDec, usdBalance: usdBalDec)
-            
-            var dict = [String:SecuXCoinTokenBalance]()
-            dict[token] = tokenBalance
-            
-            let _ = SecuXCoinAccount(type: coinType, name: token, tokenBalDict: dict)
-            
-            userAccount.coinAccountArray = [SecuXCoinAccount]()
-            userAccount.coinAccountArray.append(coinAccount)
-            */
+           
             return (ret, nil)
             
         }
