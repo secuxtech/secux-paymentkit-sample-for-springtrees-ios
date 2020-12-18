@@ -8,6 +8,26 @@
 
 import Foundation
 
+extension String {
+
+
+    var hexData: Data? {
+        var data = Data(capacity: self.count / 2)
+
+        let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
+        regex.enumerateMatches(in: self, range: NSRange(startIndex..., in: self)) { match, _, _ in
+            let byteString = (self as NSString).substring(with: match!.range)
+            let num = UInt8(byteString, radix: 16)!
+            data.append(num)
+        }
+
+        guard data.count > 0 else { return nil }
+
+        return data
+    }
+
+}
+
 class SecuXQRCodeParser {
     
     //private let testQRCode = "{\"amount\":\"1\", \"coinType\":\"$:abcde\", \"nonce\":\"f\", \"deviceIDhash\":\"4afff62e0b314266d9e1b3a48158d56134331a9f\"}"
@@ -18,7 +38,9 @@ class SecuXQRCodeParser {
     public var coin = ""
     public var token = ""
     public var nonce = ""
+    public var nonceData : Data?
     public var devIDHash = ""
+    
     
     init?(p22QRCode:String) {
         
@@ -52,6 +74,7 @@ class SecuXQRCodeParser {
         self.nonce = nonce
         self.devIDHash = hashID
         self.theQRCodeStr = p22QRCode
+        self.nonceData = self.nonce.hexData
         
     }
 }

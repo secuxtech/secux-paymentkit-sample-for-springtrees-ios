@@ -145,7 +145,7 @@ SecuX Server API:
 
 Confirm the promotation/payment/refill operation to the P22 device.
 
-![Procedure](doActivityProcedure.png)
+![Procedure](P22ConfirmFlow.png)
 
 SecuX Server API:
 
