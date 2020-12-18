@@ -105,7 +105,6 @@ class ViewController: BaseViewController {
 
     func login(name:String, password:String) -> Bool{
         let (ret, data) = accountManager.loginMerchantAccount(accountName: name, password: password)
-        //let (ret, data) = accountManager.loginUserAccount(userAccount: SecuXUserAccount.init(email: name, password: password))
         guard ret == SecuXRequestResult.SecuXRequestOK else{
             print("login failed!")
             if let data = data{
