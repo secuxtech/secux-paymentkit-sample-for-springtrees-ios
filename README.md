@@ -33,6 +33,7 @@ pod 'secux-paymentkit-v2'
 
 ```swift 
     import secux_paymentkit_v2
+    import secux_paymentdevicekit
 ```
 
 ## Usage
@@ -102,11 +103,13 @@ Create SecuXPaymentManager object
 Get store information via the hashed device ID in P22 QRCode.
 
 SecuX Server API:
+
 <a href="https://documenter.getpostman.com/view/9715663/SzfDvj4S?version=latest#136613f8-648a-4c76-b4bc-9edc00943aad">/api/Terminal/GetStore</a>
 
 #### <u>Declaration</u>
 ```swift
-    func getStoreInfo(devID:String) -> (SecuXRequestResult, String, SecuXStoreInfo?)
+    func getStoreInfo(devID:String) 
+                    -> (SecuXRequestResult, String, SecuXStoreInfo?)
 ```
 #### <u>Parameter</u>
 ```
@@ -141,99 +144,29 @@ SecuX Server API:
     }
 ```
 
-2. <b>Do promotation / payment / refill operation</b>
+2. <b>Do check-in / promotation / payment / refill operation</b>
 
-Confirm the promotation/payment/refill operation to the P22 device.
+Confirm the check-in/promotation/payment/refill operation to the P22 device.
 
 ![Procedure](P22ConfirmFlow.png)
 
-SecuX Server API:
+2.1 SecuX Server APIs:
+
+- Login operator account
+<a href="https://documenter.getpostman.com/view/9715663/SzfDvj4S?version=latest#76b3bbc9-2853-42c4-823b-3e0d47d58cf6">/api/Admin/Login</a>
 
 - Encrypt operation data 
 <a href="https://documenter.getpostman.com/view/9715663/SzfDvj4S?version=latest#ff393d68-3045-451f-b175-3721f3281d74">/api/B2B/ProduceCipher</a>
 
-SecuX Device APIs:
+2.2 SecuX Device APIs:
 
-Please refer to the 
-<a href="https://github.com/secuxtech/secux-paymentdevicekit-framework-sample-ios">secux_paymentdevicekit</a> 
-for the APIs below:
+Please refer to the  <a href="https://github.com/secuxtech/secux-paymentdevicekit-framework-sample-ios">secux_paymentdevicekit</a> for the APIs below:
+- Get P22 ivKey
 
-- Get P22 ivKey API
+- Cancel operation
 
-- Cancel operation 
+- Send encrypted operation data to P22
 
-- Send encrypted operation data to P22 API
-
-#### <u>Declaration</u>
-```swift
-    func doActivity(userID:String, 
-                    devID:String, 
-                    coin:String, 
-                    token:String, 
-                    transID:String, 
-                    amount:String, 
-                    nonce:String,
-                    type:String) ->(SecuXRequestResult, String)
-```
-#### <u>Parameter</u>
-```
-    userID:     Merchant account name.
-    devID:      Current device ID, which can be get via getStoreInfo API
-    coin:       Coin info. from the QRCode.
-    token:      Token info. from the QRCode.
-    transID:    Transaction ID assigned by merchant. 
-    amount:     Amount info. from the QRCode.
-    nonce:      Nonce info. from the QRCode. 
-    type:       Activity type: promotion / payment / refill.
-```
-#### <u>Return value</u>
-```
-    SecuXRequestResult shows the operation result. If the result is SecuXRequestOK, 
-    doActivity is successfully and P22 should show the successful message, 
-    otherwise doActivity is failed and returned string might contain an error message.
-
-    Note: if return result is SecuXRequestNoToken / SecuXRequestUnauthorized, the login 
-    session is timeout, please relogin the system.
-```
-#### <u>Sample</u>
-
-```swift
-    var (doActivityRet, doActivityError) = paymentManager.doActivity(userID: self.accountName, 
-                                                                    devID: devID,
-                                                                    coin: qrcodeParser.coin,
-                                                                    token: qrcodeParser.token,
-                                                                    transID: transID,
-                                                                    amount: qrcodeParser.amount,
-                                                                    nonce: qrcodeParser.nonce,
-                                                                    type: "promotion")
-    if doActivityRet == SecuXRequestResult.SecuXRequestUnauthorized{
-        
-        //If login session timeout, relogin the merchant account
-        guard login(name: self.accountName, password: self.accountPwd) else{
-            self.showMessageInMainThread(title: "Login failed. doEncryptPaymentData abort!", 
-                                       message: "")
-            return
-        }
-        
-        (doActivityRet, doActivityError) = paymentManager.doActivity(userID: self.accountName, 
-                                                                    devID: devID,
-                                                                    coin: qrcodeParser.coin,
-                                                                    token: qrcodeParser.token,
-                                                                    transID: transID,
-                                                                    amount: qrcodeParser.amount,
-                                                                    nonce: qrcodeParser.nonce,
-                                                                    type: "promotion")
-    }
-    
-    if doActivityRet == SecuXRequestResult.SecuXRequestOK{
-        self.showMessageInMainThread(title: "doEncryptPaymentDataTest result successfully!", 
-                                   message: "")
-    }else{
-        self.showMessageInMainThread(title: "doEncryptPaymentDataTest result failed!", 
-                                   message: "\(doActivityError)")
-    }
-    
-```
 
 ## Author
 
