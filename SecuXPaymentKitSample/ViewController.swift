@@ -66,7 +66,7 @@ class ViewController: BaseViewController {
     private let paymentManager = SecuXPaymentManager()
     private let paymentPeripheralManager = SecuXPaymentPeripheralManager(scanTimeout: 10, connTimeout: 10, checkRSSI: -75)
     
-    
+    private var devIVKey = ""
     
     private let userName = "sttest"
     private let userPwd = "sttest168"
@@ -155,7 +155,10 @@ class ViewController: BaseViewController {
                 
             }
 
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(action) in
+                
+                self.cancelOperation()
+            }
             alertController.addAction(selectAction)
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true, completion: nil)
@@ -201,7 +204,10 @@ class ViewController: BaseViewController {
                 
             }
 
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(action) in
+                
+                self.cancelOperation()
+            }
             alertController.addAction(selectAction)
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true, completion: nil)
@@ -246,7 +252,10 @@ class ViewController: BaseViewController {
                 
             }
 
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(action) in
+                
+                self.cancelOperation()
+            }
             alertController.addAction(selectAction)
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true, completion: nil)
@@ -254,6 +263,9 @@ class ViewController: BaseViewController {
         
     }
     
+    func cancelOperation(){
+        self.paymentPeripheralManager.requestDisconnect()
+    }
     
     func confirmOperation(devID:String, transID:String, qrcodeParser:SecuXQRCodeParser, type:String){
 
@@ -262,133 +274,77 @@ class ViewController: BaseViewController {
             amount = qrcodeParser.refill
         }
         
-        
-        
-        /*
-        var (doActivityRet, doActivityError) = paymentManager.doActivity(userID: self.accountName, devID: devID,
-                                                                         coin: qrcodeParser.coin,
-                                                                         token: qrcodeParser.token,
-                                                                         transID: transID,
-                                                                         amount: amount,
-                                                                         nonce: qrcodeParser.nonce,
-                                                                         type:type)
-        
-        if doActivityRet == SecuXRequestResult.SecuXRequestUnauthorized{
-            
-            //If login session timeout, relogin the merchant account
-            guard login(name: self.accountName, password: self.accountPwd) else{
-                //hideProgress()
-                self.showMessageInMainThread(title: "Login failed. confirmOperation abort!", message: "",closeProgress: true)
-                return
-            }
-            
-            (doActivityRet, doActivityError) = paymentManager.doActivity(userID: self.accountName, devID: devID,
-                                                                        coin: qrcodeParser.coin,
-                                                                        token: qrcodeParser.token,
-                                                                        transID: transID,
-                                                                        amount: amount,
-                                                                        nonce: qrcodeParser.nonce,
-                                                                        type:type)
+
+        let operatorName = "springtreesoperator"
+        let operatorPwd = "springtrees"
+        guard self.login(name: operatorName, password: operatorPwd) else{
+           self.showMessageInMainThread(title: "Operator login failed. Confirm abort!", message: "", closeProgress: true)
+           return
         }
         
- 
-        if doActivityRet == SecuXRequestResult.SecuXRequestOK{
-            self.showMessageInMainThread(title: "ConfirmOperation result successfully!", message: "", closeProgress: true)
-        }else{
-            self.showMessageInMainThread(title: "ConfirmOperation result failed!", message: "\(doActivityError)", closeProgress: true)
-        }
-        */
+        let (svrRet, reply) = self.paymentManager.generateEncryptedData(ivkey:     self.devIVKey,
+                                                                        userID:    operatorName,
+                                                                        devID:     devID,
+                                                                        coin:      qrcodeParser.coin,
+                                                                        token:     qrcodeParser.token,
+                                                                        transID:   transID,
+                                                                        amount:    qrcodeParser.amount,
+                                                                        type:      type)
         
- 
-        guard let nonce = qrcodeParser.nonceData else{
-            self.showMessageInMainThread(title: "Invalid qrcode nonce!", message: "", closeProgress: true)
-            return
-        }
-        
-        
-        
-        let (ret, ivkey) = paymentPeripheralManager.doGetIVKey(devID: devID, nonce:[UInt8](nonce))
-        if ret == .OprationSuccess{
-                                                                             
-            let operatorName = "springtreesoperator"
-            let operatorPwd = "springtrees"
-            guard self.login(name: operatorName, password: operatorPwd) else{
-               self.showMessageInMainThread(title: "Operator login failed. Confirm abort!", message: "", closeProgress: true)
-               return
-            }
-            
-            let (svrRet, reply) = self.paymentManager.generateEncryptedData(ivkey:     ivkey,
-                                                                            userID:    operatorName,
-                                                                            devID:     devID,
-                                                                            coin:      qrcodeParser.coin,
-                                                                            token:     qrcodeParser.token,
-                                                                            transID:   transID,
-                                                                            amount:    qrcodeParser.amount,
-                                                                            type:      type)
-            
-            if svrRet == SecuXRequestResult.SecuXRequestOK, let replyData = reply.data(using: .utf8){
-                if let replyJson = try? JSONSerialization.jsonObject(with: replyData, options: []) as? [String:Any]{
-                        
-                    guard let statusCode = replyJson["statusCode"] as? Int,
-                        let statusDesc = replyJson["statusDesc"] as? String,
-                        let encryptedText = replyJson["encryptedText"] as? String else{
-                            
-                            self.showMessageInMainThread(title: "ConfirmOperation result failed!",
-                                                     message: "Invalid reply data from server \(replyJson.description)",
-                                                     closeProgress: true)
-                            return
-                    }
+        if svrRet == SecuXRequestResult.SecuXRequestOK, let replyData = reply.data(using: .utf8){
+            if let replyJson = try? JSONSerialization.jsonObject(with: replyData, options: []) as? [String:Any]{
                     
-                    if statusCode == 200, statusDesc == "OK", encryptedText.count > 0, let encryptedData = Data(base64Encoded: encryptedText){
-                        
-                        let (verifyRet, errorMsg) = self.paymentPeripheralManager.doPaymentVerification(encPaymentData: encryptedData)
-                        if verifyRet == .OprationSuccess{
-                            self.showMessageInMainThread(title: "ConfirmOperation result successfully!", message: "", closeProgress: true)
-                            return;
-                        }
+                guard let statusCode = replyJson["statusCode"] as? Int,
+                    let statusDesc = replyJson["statusDesc"] as? String,
+                    let encryptedText = replyJson["encryptedText"] as? String else{
                         
                         self.showMessageInMainThread(title: "ConfirmOperation result failed!",
-                                                     message: "Send device verification failed! error = \(errorMsg)",
-                                                     closeProgress: true)
-                     
-                        
-                    }else{
-                       
-                        self.showMessageInMainThread(title: "ConfirmOperation result failed!",
-                                                     message: "Gen ciper failed. statusCode=\(statusCode) statusDesc=\(statusDesc) encTxt=\(encryptedText)",
-                                                     closeProgress: true)
-                    }
+                                                 message: "Invalid reply data from server \(replyJson.description)",
+                                                 closeProgress: true)
+                        return
+                }
+                
+                if statusCode == 200, statusDesc == "OK", encryptedText.count > 0, let encryptedData = Data(base64Encoded: encryptedText){
                     
-                }else{
-      
+                    let (verifyRet, errorMsg) = self.paymentPeripheralManager.doPaymentVerification(encPaymentData: encryptedData)
+                    if verifyRet == .OprationSuccess{
+                        self.showMessageInMainThread(title: "ConfirmOperation result successfully!", message: "", closeProgress: true)
+                        return;
+                    }
                     
                     self.showMessageInMainThread(title: "ConfirmOperation result failed!",
-                                                 message: "Invalid json response from server",
+                                                 message: "Send device verification failed! error = \(errorMsg)",
+                                                 closeProgress: true)
+                 
+                    
+                }else{
+                   
+                    self.showMessageInMainThread(title: "ConfirmOperation result failed!",
+                                                 message: "Gen ciper failed. statusCode=\(statusCode) statusDesc=\(statusDesc) encTxt=\(encryptedText)",
                                                  closeProgress: true)
                 }
+                
             }else{
-            
-                self.showMessageInMainThread(title: "ConfirmOperation result failed!",
-                                             message: "Generate cipher request failed error = \(reply)",
-                                             closeProgress: true)
-            
-            }
-                                                                                                            
-        }
-        else{
   
-            self.showMessageInMainThread(title: "ConfirmOperation result failed!",
-                                         message: "Get dev ivkey failed! error = \(ivkey)",
-                                         closeProgress: true)
+                
+                self.showMessageInMainThread(title: "ConfirmOperation result failed!",
+                                             message: "Invalid json response from server",
+                                             closeProgress: true)
+            }
         }
+        
         
         paymentPeripheralManager.requestDisconnect()
     }
+    
+    
     
 }
 
 extension ViewController: LBXScanViewControllerDelegate{
     func scanFinished(scanResult: LBXScanResult, error: String?) {
+        
+        self.devIVKey = ""
         
         guard let scanQRCodeVC = self.scanQRCodeVC else{
             return
@@ -477,16 +433,35 @@ extension ViewController: LBXScanViewControllerDelegate{
                    self.showMessageInMainThread(title: "Invalid store info. no device ID", message: "", closeProgress: true)
                    return
                 }
-
                 
-        
                 if qrcodeParser.coin == "$"{
-                    guard let promotionInfo = storeInfo.getPromotionDetails(code: qrcodeParser.token) else{
+                    guard let _ = storeInfo.getPromotionDetails(code: qrcodeParser.token) else{
                        self.showMessageInMainThread(title: "Invalid store protmotion code", message: "", closeProgress: true)
                        return
                     }
                     
-                    self.showPromotionDetails(storeInfo: storeInfo, promotionInfo: promotionInfo, qrcodeParser: qrcodeParser)
+                }
+                
+                guard let nonce = qrcodeParser.nonceData else{
+                    self.showMessageInMainThread(title: "Invalid qrcode nonce!", message: "", closeProgress: true)
+                    return
+                }
+
+                let (getKeyRet, ivkey) = self.paymentPeripheralManager.doGetIVKey(devID: storeInfo.devID, nonce:[UInt8](nonce))
+                guard getKeyRet == .OprationSuccess else{
+          
+                    self.showMessageInMainThread(title: "Connect with P22/P20 failed!",
+                                                 message: "Get dev ivkey failed! error = \(ivkey)",
+                                                 closeProgress: true)
+                    return
+                }
+                self.devIVKey = ivkey
+        
+                if qrcodeParser.coin == "$"{
+                    
+                    self.showPromotionDetails(storeInfo: storeInfo,
+                                              promotionInfo: storeInfo.getPromotionDetails(code: qrcodeParser.token)!,
+                                              qrcodeParser: qrcodeParser)
                     
                 }else if qrcodeParser.amount.count > 0{
                     
