@@ -10,6 +10,7 @@ import UIKit
 import swiftScan
 import secux_paymentkit_v2
 import secux_paymentdevicekit
+import CoreBluetooth
 
 extension UIButton {
     func setBackgroundColor(color: UIColor, forState: UIControl.State) {
@@ -78,9 +79,15 @@ class ViewController: BaseViewController {
         let _ = self.scanQRCodeButton
         
         self.accountManager.setBaseServer(url: "https://pmsweb-sandbox.secuxtech.com")
+        
+        SecuXBLEManager.shared.delegate = self
     }
 
     @objc func scanQRCodeAction(){
+        
+        if !hasBLEPermission(){
+            return
+        }
         
         var style = LBXScanViewStyle()
         style.centerUpOffset = 44
@@ -480,6 +487,26 @@ extension ViewController: LBXScanViewControllerDelegate{
         }
         
         self.showMessage(title: "Invalid QRCode!", message: "Please try again.")
+    }
+    
+    
+}
+
+extension ViewController: BLEDevControllerDelegate{
+    func updateBLESetting(state: CBManagerState) {
+        
+        if state != CBManagerState.poweredOn{
+            
+            DispatchQueue.main.async {
+                self.alertPromptAPPSettings(title: "APP would like to use Bluetooth",
+                                     message: "Please turn on the Bluetooth!")
+            }
+            
+        }
+    }
+    
+    func updateConnDevStatus(status: Int) {
+        
     }
     
     

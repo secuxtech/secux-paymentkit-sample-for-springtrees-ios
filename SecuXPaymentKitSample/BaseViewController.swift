@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import CoreBluetooth
 
 class BaseViewController: UIViewController {
     
@@ -22,6 +22,45 @@ class BaseViewController: UIViewController {
         
         self.theProgress.modalPresentationStyle = .overFullScreen
 
+    }
+    
+    func hasBLEPermission() -> Bool{
+        if #available(iOS 13.1, *) {
+            let authStatus = CBPeripheralManager.authorization
+            if authStatus == .denied{
+                alertPromptAPPSettings(title: "APP would like to use Bluetooth",
+                                       message: "Please grant Bluetooth permission")
+                return false
+                
+            }
+        } else {
+            let authStatus = CBPeripheralManager.authorizationStatus()
+            if authStatus == .denied{
+                alertPromptAPPSettings(title: "APP would like to use Bluetooth",
+                                     message: "Please grant Bluetooth permission")
+                
+                return false
+              
+            }
+        }
+        
+        return true
+    }
+
+    func alertPromptAPPSettings(title:String, message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert )
+        alert.addAction(UIAlertAction(title: "Settings", style: .default) { alert in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+               return
+            }
+
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+               UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                   print("Settings opened: \(success)") // Prints true
+               })
+            }
+        })
+        present(alert, animated: true, completion: nil)
     }
 
     
