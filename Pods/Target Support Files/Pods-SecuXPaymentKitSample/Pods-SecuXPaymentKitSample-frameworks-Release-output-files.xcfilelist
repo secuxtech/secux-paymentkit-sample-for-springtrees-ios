@@ -1,2 +1,1 @@
 ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/secux_paymentdevicekit.framework
-${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/swiftScan.framework

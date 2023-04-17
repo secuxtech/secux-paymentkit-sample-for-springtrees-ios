@@ -1,4 +1,4 @@
-framework module swiftScan {
+module swiftScan {
   umbrella header "swiftScan-umbrella.h"
 
   export *

@@ -41,7 +41,7 @@ open class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
 
     let session = AVCaptureSession()
     var previewLayer: AVCaptureVideoPreviewLayer?
-    //var stillImageOutput: AVCaptureStillImageOutput
+    var stillImageOutput: AVCaptureStillImageOutput
 
     // 存储返回结果
     var arrayResult = [LBXScanResult]()
@@ -77,7 +77,7 @@ open class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
         successBlock = success
         output = AVCaptureMetadataOutput()
         isNeedCaptureImage = isCaptureImg
-        //stillImageOutput = AVCaptureStillImageOutput()
+        stillImageOutput = AVCaptureStillImageOutput()
 
         super.init()
         
@@ -101,11 +101,11 @@ open class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
             session.addOutput(output)
         }
 
-        //if session.canAddOutput(stillImageOutput) {
-        //    session.addOutput(stillImageOutput)
-        //}
+        if session.canAddOutput(stillImageOutput) {
+            session.addOutput(stillImageOutput)
+        }
 
-        //stillImageOutput.outputSettings = [AVVideoCodecJPEG: AVVideoCodecKey]
+        stillImageOutput.outputSettings = [AVVideoCodecJPEG: AVVideoCodecKey]
 
         session.sessionPreset = AVCaptureSession.Preset.high
 
@@ -196,7 +196,7 @@ open class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
                 successBlock(arrayResult)
             }
             else if isNeedCaptureImage {
-                //captureImage()
+                captureImage()
             } else {
                 stop()
                 successBlock(arrayResult)
@@ -205,7 +205,6 @@ open class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
     }
     
     //MARK: ----拍照
-    /*
     open func captureImage() {
         guard let stillImageConnection = connectionWithMediaType(mediaType: AVMediaType.video as AVMediaType,
                                                                  connections: stillImageOutput.connections as [AnyObject]) else {
@@ -224,7 +223,6 @@ open class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
             self.successBlock(self.arrayResult)
         })
     }
-    */
     
     open func connectionWithMediaType(mediaType: AVMediaType, connections: [AnyObject]) -> AVCaptureConnection? {
         for connection in connections {

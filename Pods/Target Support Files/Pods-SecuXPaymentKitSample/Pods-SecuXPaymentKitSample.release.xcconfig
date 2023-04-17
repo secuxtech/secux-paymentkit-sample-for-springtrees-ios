@@ -1,15 +1,17 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
 EXCLUDED_ARCHS[sdk=iphonesimulator*] = arm64
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/secux-paymentkit-v2" "${PODS_CONFIGURATION_BUILD_DIR}/swiftScan" "${PODS_ROOT}/secux-paymentdevicekit"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/secux-paymentdevicekit"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/secux-paymentkit-v2/secux_paymentkit_v2.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/swiftScan/swiftScan.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_LDFLAGS = $(inherited) -ObjC -framework "secux_paymentdevicekit" -framework "secux_paymentkit_v2" -framework "swiftScan"
-OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/secux-paymentkit-v2" "${PODS_CONFIGURATION_BUILD_DIR}/swiftScan"
+OTHER_CFLAGS = $(inherited) -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/secux-paymentkit-v2/secux_paymentkit_v2.modulemap" -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/swiftScan/swiftScan.modulemap"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"secux-paymentkit-v2" -l"swiftScan" -framework "secux_paymentdevicekit"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/secux-paymentkit-v2/secux_paymentkit_v2.modulemap" -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/swiftScan/swiftScan.modulemap"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods
 PODS_XCFRAMEWORKS_BUILD_DIR = $(PODS_CONFIGURATION_BUILD_DIR)/XCFrameworkIntermediates
+SWIFT_INCLUDE_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/secux-paymentkit-v2" "${PODS_CONFIGURATION_BUILD_DIR}/swiftScan"
 USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES

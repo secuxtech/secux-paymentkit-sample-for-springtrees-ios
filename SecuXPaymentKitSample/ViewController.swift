@@ -28,6 +28,8 @@ extension UIButton {
 
 class ViewController: BaseViewController {
     
+    
+    
     lazy var scanQRCodeButton:  UIButton = {
         
         let btn = UIButton()
@@ -64,22 +66,31 @@ class ViewController: BaseViewController {
     var scanQRCodeVC : LBXScanViewController?
     
     private let accountManager = SecuXAccountManager()
+    private let paymentPeripheralManager = SecuXPaymentPeripheralManager(scanTimeout: 10, connTimeout: 90, checkRSSI: -75)
     private let paymentManager = SecuXPaymentManager()
-    private let paymentPeripheralManager = SecuXPaymentPeripheralManager(scanTimeout: 10, connTimeout: 10, checkRSSI: -75)
     
     private var devIVKey = ""
+ 
+    // sandbox
+//    private let userName = "sttest"
+//    private let userPwd = "sttest168"
     
-    private let userName = "sttest"
-    private let userPwd = "sttest168"
     
+    // io
+    private let userName = "secuxstream"
+    private let userPwd = "secuxstream168"
+    
+//    private let userName = "sttest"
+//    private let userPwd = "sttest168"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let _ = self.scanQRCodeButton
         
-        self.accountManager.setBaseServer(url: "https://pmsweb-sandbox.secuxtech.com")
-        
+//        self.accountManager.setBaseServer(url: "https://pmsweb-sandbox.secuxtech.com")
+        self.accountManager.setBaseServer(url: "https://pmsweb-test.secux.io")
+
         SecuXBLEManager.shared.delegate = self
     }
 
@@ -282,13 +293,22 @@ class ViewController: BaseViewController {
         }
         
 
-        let operatorName = "springtreesoperator"
-        let operatorPwd = "springtrees"
+        // sandbox
+//        let operatorName = "springtreesoperator"
+//        let operatorPwd = "springtrees"
+        
+        // io
+        let operatorName = "secuxstream"
+        let operatorPwd = "secuxstream168"
+        let timeZone = "8"
+        
+        
         guard self.login(name: operatorName, password: operatorPwd) else{
            self.showMessageInMainThread(title: "Operator login failed. Confirm abort!", message: "", closeProgress: true)
            return
         }
         
+    
         let (svrRet, reply) = self.paymentManager.generateEncryptedData(ivkey:     self.devIVKey,
                                                                         userID:    operatorName,
                                                                         devID:     devID,
@@ -296,7 +316,8 @@ class ViewController: BaseViewController {
                                                                         token:     qrcodeParser.token,
                                                                         transID:   transID,
                                                                         amount:    qrcodeParser.amount,
-                                                                        type:      type)
+                                                                        type:      type,
+                                                                        timeZone:  timeZone)
         
         if svrRet == SecuXRequestResult.SecuXRequestOK, let replyData = reply.data(using: .utf8){
             if let replyJson = try? JSONSerialization.jsonObject(with: replyData, options: []) as? [String:Any]{
@@ -493,6 +514,41 @@ extension ViewController: LBXScanViewControllerDelegate{
 }
 
 extension ViewController: BLEDevControllerDelegate{
+    
+    
+    func enableBLESetting() {
+        DispatchQueue.main.async {
+            
+            let alert = UIAlertController(title: "Bluetooth is off",
+                                          message:"Please turn on your bluetooth",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Setting",
+                                          style: .default,
+                                          handler: {
+                                            
+                                            (action) in
+                                            if action.style == .default{
+                                                
+                                                if let url = URL(string:UIApplication.openSettingsURLString)
+                                                {
+                                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                                }
+                                                
+                                            }
+            }))
+            
+            
+            alert.addAction(UIAlertAction(title: "Cancel",
+                                          style: .default,
+                                          handler: nil))
+            
+            
+            self.present(alert, animated: true, completion:nil)
+        }
+    }
+    
+ 
+    
     func updateBLESetting(state: CBManagerState) {
         
         if state != CBManagerState.poweredOn{
