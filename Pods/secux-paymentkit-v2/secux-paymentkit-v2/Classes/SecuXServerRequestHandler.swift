@@ -12,7 +12,9 @@ import Foundation
 class SecuXServerRequestHandler: RestRequestHandler {
     
 
-    static var baseURL = "https://pmsweb-sandbox.secuxtech.com" //"https://pmsweb-test.secux.io"  //"https://pmsweb-sandbox.secuxtech.com" //"https://pmsweb-test.secux.io"
+    static var baseURL = "https://pmsweb-sandbox.secuxtech.com"
+//    static var baseURL =  "https://pmsweb-test.secux.io"
+    
     static var adminLoginUrl = baseURL + "/api/Admin/Login"
     static var registerUrl = baseURL + "/api/Consumer/Register"
     static var userLoginUrl = baseURL + "/api/Consumer/Login"
@@ -379,7 +381,7 @@ class SecuXServerRequestHandler: RestRequestHandler {
         return self.postRequestSync(urlstr: SecuXServerRequestHandler.refillUrl, param: param, token: SecuXServerRequestHandler.theToken)
     }
     
-    func encryptPaymentData(sender:String, devID:String, ivKey:String, coin:String, token:String, transID:String, amount:String, memo:String) -> (SecuXRequestResult, Data?){
+    func encryptPaymentData(sender:String, devID:String, ivKey:String, coin:String, token:String, transID:String, amount:String, memo:String, timeZone:String) -> (SecuXRequestResult, Data?){
         if SecuXServerRequestHandler.theToken.count == 0{
             logw("no token")
             return (SecuXRequestResult.SecuXRequestNoToken, "no token".data(using: .utf8))
@@ -392,7 +394,8 @@ class SecuXServerRequestHandler: RestRequestHandler {
                      "deviceId":devID,
                      "transactionId":transID,
                      "amount":amount,
-                     "memo":memo] as [String : String]
+                     "memo":memo,
+                     "timeZone":timeZone] as [String : String]
         
         return self.postRequestSync(urlstr: SecuXServerRequestHandler.encryptPaymentDataUrl, param: param, token: SecuXServerRequestHandler.theToken)
     }

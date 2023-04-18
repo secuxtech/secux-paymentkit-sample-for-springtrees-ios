@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import AVFoundation
 
-public protocol LBXScanViewControllerDelegate: AnyObject {
+public protocol LBXScanViewControllerDelegate: class {
      func scanFinished(scanResult: LBXScanResult, error: String?)
 }
 

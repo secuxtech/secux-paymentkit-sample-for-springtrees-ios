@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "53C319F440AD1ED9F637FA07994F94A5"
-               BuildableName = "libswiftScan.a"
+               BuildableName = "swiftScan.framework"
                BlueprintName = "swiftScan"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

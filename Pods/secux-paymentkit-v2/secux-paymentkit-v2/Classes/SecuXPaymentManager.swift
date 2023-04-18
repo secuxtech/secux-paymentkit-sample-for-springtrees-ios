@@ -396,7 +396,7 @@ open class SecuXPaymentManager: SecuXPaymentManagerBase {
         return (SecuXRequestResult.SecuXRequestFailed, "Get refill infor. from device failed! Error: \(ivkey)");
     }
     
-    open func doActivity(userID:String, devID:String, coin:String, token:String, transID:String, amount:String, nonce:String, type:String) ->(SecuXRequestResult, String){
+    open func doActivity(userID:String, devID:String, coin:String, token:String, transID:String, amount:String, nonce:String, type:String, timeZone:String) ->(SecuXRequestResult, String){
         guard let nonceData = nonce.hexData, nonceData.count > 0 else{
             return (SecuXRequestResult.SecuXRequestFailed, "Invalid nonce");
         }
@@ -406,7 +406,7 @@ open class SecuXPaymentManager: SecuXPaymentManagerBase {
         if ret == .OprationSuccess{
                                                                                                             
             let (svrRet, reply) = self.secXSvrReqHandler.encryptPaymentData(sender: userID, devID: devID, ivKey: ivkey,
-                                                                            coin: coin, token: token, transID: transID, amount: amount, memo: type)
+                                                                            coin: coin, token: token, transID: transID, amount: amount, memo: type, timeZone: timeZone)
             if svrRet == SecuXRequestResult.SecuXRequestOK{
                 if let replyData = reply,
                     let replyJson = try? JSONSerialization.jsonObject(with: replyData, options: []) as? [String:Any]{
@@ -446,10 +446,10 @@ open class SecuXPaymentManager: SecuXPaymentManagerBase {
                                                                                                                 
     }
     
-    open func generateEncryptedData(ivkey:String, userID:String, devID:String, coin:String, token:String, transID:String, amount:String, type:String) ->(SecuXRequestResult, String){
+    open func generateEncryptedData(ivkey:String, userID:String, devID:String, coin:String, token:String, transID:String, amount:String, type:String, timeZone:String) ->(SecuXRequestResult, String){
     
         let (svrRet, reply) = self.secXSvrReqHandler.encryptPaymentData(sender: userID, devID: devID, ivKey: ivkey,
-                                                                        coin: coin, token: token, transID: transID, amount: amount, memo: type)
+                                                                        coin: coin, token: token, transID: transID, amount: amount, memo: type, timeZone: timeZone)
         if svrRet == SecuXRequestResult.SecuXRequestOK,
            let replyData = reply,
            let replyStr = String(data: replyData, encoding: .utf8){

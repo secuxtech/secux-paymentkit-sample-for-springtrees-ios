@@ -307,7 +307,6 @@ open class SecuXPaymentManagerBase{
         
         self.handlePaymentStatus(status: "Device connecting...")
         
-        
         let (ret, ivkey) = paymentPeripheralManager.doGetIVKey(devID: paymentInfo.deviceID)
         if ret == .OprationSuccess{
             paymentInfo.ivKey = ivkey

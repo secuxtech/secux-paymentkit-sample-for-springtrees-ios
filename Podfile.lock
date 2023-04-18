@@ -1,6 +1,6 @@
 PODS:
-  - secux-paymentdevicekit (2.0.13)
-  - secux-paymentkit-v2 (2.1.19):
+  - secux-paymentdevicekit (2.0.12)
+  - secux-paymentkit-v2 (2.1.17):
     - secux-paymentdevicekit
   - swiftScan (1.2.1)
 
@@ -23,10 +23,10 @@ CHECKOUT OPTIONS:
     :git: https://github.com/MxABC/swiftScan.git
 
 SPEC CHECKSUMS:
-  secux-paymentdevicekit: 0ae2cacd809677b2a649d70f6776ed27635f404f
-  secux-paymentkit-v2: b49ff6041f8041a4e76caf3e023a7548faeeae3d
+  secux-paymentdevicekit: 390fb70142b53f7f7186e2324d47e9a60f357d03
+  secux-paymentkit-v2: 33d9d57b9047dd19749080f43427f05f61bd4571
   swiftScan: 0849e7d7c1c641384767a573ee8cb90b88d1ddd9
 
-PODFILE CHECKSUM: 291a913c2523d8cf90c239b9c6f897ded947f264
+PODFILE CHECKSUM: d1c3bd38818aa34a545509753d31cada2b0131de
 
 COCOAPODS: 1.10.1

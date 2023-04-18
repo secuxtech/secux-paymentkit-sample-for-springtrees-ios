@@ -1,4 +1,4 @@
-module Pods_SecuXPaymentKitSample {
+framework module Pods_SecuXPaymentKitSample {
   umbrella header "Pods-SecuXPaymentKitSample-umbrella.h"
 
   export *

@@ -28,8 +28,6 @@ extension UIButton {
 
 class ViewController: BaseViewController {
     
-    
-    
     lazy var scanQRCodeButton:  UIButton = {
         
         let btn = UIButton()
@@ -66,9 +64,10 @@ class ViewController: BaseViewController {
     var scanQRCodeVC : LBXScanViewController?
     
     private let accountManager = SecuXAccountManager()
-    private let paymentPeripheralManager = SecuXPaymentPeripheralManager(scanTimeout: 10, connTimeout: 90, checkRSSI: -75)
     private let paymentManager = SecuXPaymentManager()
-    
+//    private let paymentPeripheralManager = SecuXPaymentPeripheralManager(scanTimeout: 10, connTimeout: 90, checkRSSI: -75)
+    var paymentPeripheralManager: SecuXPaymentPeripheralManager = SecuXPaymentPeripheralManager(scanTimeout: 10, connTimeout: 90, checkRSSI: -75)
+
     private var devIVKey = ""
  
     // sandbox
@@ -88,8 +87,8 @@ class ViewController: BaseViewController {
         
         let _ = self.scanQRCodeButton
         
-//        self.accountManager.setBaseServer(url: "https://pmsweb-sandbox.secuxtech.com")
-        self.accountManager.setBaseServer(url: "https://pmsweb-test.secux.io")
+        self.accountManager.setBaseServer(url: "https://pmsweb-sandbox.secuxtech.com")
+//        self.accountManager.setBaseServer(url: "https://pmsweb-test.secux.io")
 
         SecuXBLEManager.shared.delegate = self
     }
@@ -118,6 +117,7 @@ class ViewController: BaseViewController {
 
         self.present(scanQRCodeVC!, animated: true, completion: nil)
         
+        self.paymentPeripheralManager = SecuXPaymentPeripheralManager(scanTimeout: 10, connTimeout: 30, checkRSSI: -75)
         
     }
 
@@ -302,20 +302,21 @@ class ViewController: BaseViewController {
         let operatorPwd = "secuxstream168"
         let timeZone = "8"
         
+        amount = "0" //JUDY2
         
         guard self.login(name: operatorName, password: operatorPwd) else{
            self.showMessageInMainThread(title: "Operator login failed. Confirm abort!", message: "", closeProgress: true)
            return
         }
         
-    
         let (svrRet, reply) = self.paymentManager.generateEncryptedData(ivkey:     self.devIVKey,
                                                                         userID:    operatorName,
                                                                         devID:     devID,
                                                                         coin:      qrcodeParser.coin,
                                                                         token:     qrcodeParser.token,
                                                                         transID:   transID,
-                                                                        amount:    qrcodeParser.amount,
+//                                                                        amount:    qrcodeParser.amount,//JUDY2
+                                                                        amount:    amount,
                                                                         type:      type,
                                                                         timeZone:  timeZone)
         
