@@ -71,17 +71,24 @@ class ViewController: BaseViewController {
     private var devIVKey = ""
  
     // sandbox
-//    private let userName = "sttest"
-//    private let userPwd = "sttest168"
+
+
     
     
     // io
-    private let userName = "secuxstream"
-    private let userPwd = "secuxstream168"
+    private var userName = ""
+    private var userPwd = ""
+
+
     
-//    private let userName = "sttest"
-//    private let userPwd = "sttest168"
-    
+    func configureOperator(name: String, password: String) -> Bool {
+        guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+              !password.isEmpty else { return false }
+        userName = name
+        userPwd = password
+        return true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -122,6 +129,7 @@ class ViewController: BaseViewController {
     }
 
     func login(name:String, password:String) -> Bool{
+        guard !name.isEmpty, !password.isEmpty else { return false }
         let (ret, data) = accountManager.loginMerchantAccount(accountName: name, password: password)
         guard ret == SecuXRequestResult.SecuXRequestOK else{
             print("login failed!")
@@ -294,12 +302,12 @@ class ViewController: BaseViewController {
         
 
         // sandbox
-//        let operatorName = "springtreesoperator"
-//        let operatorPwd = "springtrees"
+
+
         
         // io
-        let operatorName = "secuxstream"
-        let operatorPwd = "secuxstream168"
+        let operatorName = self.userName
+        let operatorPwd = self.userPwd
         let timeZone = "8"
         
         amount = "0" //JUDY2
@@ -403,7 +411,7 @@ extension ViewController: LBXScanViewControllerDelegate{
                 param:
                     {
                         "account": "account",
-                        "password": "account"
+                        "password": "<caller-provided password>"
                     }
 
                 */
